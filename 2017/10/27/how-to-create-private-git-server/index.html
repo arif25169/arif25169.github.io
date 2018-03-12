@@ -1,0 +1,1146 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 9]><html class="ie9 no-mobile-device" lang="en-US" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class="no-mobile-device" lang="en-US" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#"> <!--<![endif]-->
+
+
+<!-- Mirrored from okkhor.org/2017/10/27/how-to-create-private-git-server/ by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 12 Mar 2018 09:05:44 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head itemscope itemtype="https://schema.org/BlogPosting">
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<link rel="profile" href="http://gmpg.org/xfn/11" />
+		<link rel="shortcut icon" href="../../../../wp-content/uploads/2017/10/logo.png_15094224636170101.png" />
+		<link rel="alternate" type="application/rss+xml" title="Okkhor.org -Tech Blog ≥ Guides Software Tutorials RSS Feed" href="../../../../feed/index.html" />
+	<link rel="alternate" type="application/atom+xml" title="Okkhor.org -Tech Blog ≥ Guides Software Tutorials Atom Feed" href="../../../../feed/atom/index.html" />
+	<link rel="pingback" href="../../../../xmlrpc.php" />
+
+	<title>How to create private git server &#8211; Okkhor.org -Tech Blog ≥ Guides Software Tutorials</title>
+<link rel='dns-prefetch' href='http://s0.wp.com/' />
+<link rel='dns-prefetch' href='http://fonts.googleapis.com/' />
+<link rel='dns-prefetch' href='http://s.w.org/' />
+<link rel="alternate" type="application/rss+xml" title="Okkhor.org -Tech Blog ≥ Guides Software Tutorials &raquo; Feed" href="../../../../feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Okkhor.org -Tech Blog ≥ Guides Software Tutorials &raquo; Comments Feed" href="../../../../comments/feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Okkhor.org -Tech Blog ≥ Guides Software Tutorials &raquo; How to create private git server Comments Feed" href="feed/index.html" />
+<meta property='okkhor:okkhor_site_name' content='Okkhor.org -Tech Blog ≥ Guides Software Tutorials'/><meta property='okkhor:okkhor_url' content='index.html'/><meta property='okkhor:okkhor_title' content='How to create private git server'/><meta property='okkhor:okkhor_type' content='article'/><meta property='og:image' content='../../../../../i2.wp.com/okkhor.org/wp-content/uploads/2017/10/GIT-SVNd762.jpg?resize=650%2C440&amp;ssl=1'/>		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.3\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.3\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/okkhor.org\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.8.3"}};
+			!function(a,b,c){function d(a){var b,c,d,e,f=String.fromCharCode;if(!k||!k.fillText)return!1;switch(k.clearRect(0,0,j.width,j.height),k.textBaseline="top",k.font="600 32px Arial",a){case"flag":return k.fillText(f(55356,56826,55356,56819),0,0),b=j.toDataURL(),k.clearRect(0,0,j.width,j.height),k.fillText(f(55356,56826,8203,55356,56819),0,0),c=j.toDataURL(),b!==c&&(k.clearRect(0,0,j.width,j.height),k.fillText(f(55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447),0,0),b=j.toDataURL(),k.clearRect(0,0,j.width,j.height),k.fillText(f(55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447),0,0),c=j.toDataURL(),b!==c);case"emoji4":return k.fillText(f(55358,56794,8205,9794,65039),0,0),d=j.toDataURL(),k.clearRect(0,0,j.width,j.height),k.fillText(f(55358,56794,8203,9794,65039),0,0),e=j.toDataURL(),d!==e}return!1}function e(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g,h,i,j=b.createElement("canvas"),k=j.getContext&&j.getContext("2d");for(i=Array("flag","emoji4"),c.supports={everything:!0,everythingExceptFlag:!0},h=0;h<i.length;h++)c.supports[i[h]]=d(i[h]),c.supports.everything=c.supports.everything&&c.supports[i[h]],"flag"!==i[h]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[i[h]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel='stylesheet' id='contact-form-7-css'  href='../../../../wp-content/plugins/contact-form-7/includes/css/styles5859.css?ver=4.9.1' type='text/css' media='all' />
+<link rel='stylesheet' id='instag-slider-css'  href='../../../../wp-content/plugins/instagram-slider-widget/assets/css/instag-slider2fca.css?ver=1.4.0' type='text/css' media='all' />
+<link rel='stylesheet' id='components-css'  href='../../../../wp-content/themes/okkhor.org/assets/css/components.css' type='text/css' media='all' />
+<link rel='stylesheet' id='icon-fonts-css'  href='../../../../wp-content/themes/okkhor.org/assets/css/icon-fonts.css' type='text/css' media='all' />
+<link rel='stylesheet' id='chld_thm_cfg_parent-css'  href='../../../../wp-content/themes/okkhor.org/style7bcd.css?ver=4.8.3' type='text/css' media='all' />
+<link rel='stylesheet' id='body-font-css'  href='http://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic&amp;subset=latin,latin-ext' type='text/css' media='all' />
+<link rel='stylesheet' id='headings-font-css'  href='http://fonts.googleapis.com/css?family=Raleway:400,100,200,300,500,600,700,800,900&amp;subset=latin,latin-ext' type='text/css' media='all' />
+<link rel='stylesheet' id='navigation-font-css'  href='http://fonts.googleapis.com/css?family=Raleway:400,100,200,300,500,600,700,800,900&amp;subset=latin,latin-ext' type='text/css' media='all' />
+<link rel='stylesheet' id='mediaelement-css'  href='../../../../wp-includes/js/mediaelement/mediaelementplayer.min51cd.css?ver=2.22.0' type='text/css' media='all' />
+<link rel='stylesheet' id='wp-mediaelement-css'  href='../../../../wp-includes/js/mediaelement/wp-mediaelement.min7bcd.css?ver=4.8.3' type='text/css' media='all' />
+<link rel='stylesheet' id='core-style-css'  href='../../../../wp-content/themes/okkhor.org/style.css' type='text/css' media='all' />
+<link rel='stylesheet' id='core-responsive-css'  href='../../../../wp-content/themes/okkhor.org/assets/css/style-responsive.css' type='text/css' media='all' />
+<link rel='stylesheet' id='custom-css'  href='../../../../wp-content/uploads/alison_styles/custom.css' type='text/css' media='all' />
+<link rel='stylesheet' id='jetpack_css-css'  href='../../../../wp-content/plugins/jetpack/css/jetpack5156.css?ver=5.5' type='text/css' media='all' />
+<script type='text/javascript' src='../../../../wp-includes/js/jquery/jqueryb8ff.js?ver=1.12.4'></script>
+<script type='text/javascript' src='../../../../wp-includes/js/jquery/jquery-migrate.min330a.js?ver=1.4.1'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var related_posts_js_options = {"post_heading":"h4"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='../../../../wp-content/plugins/jetpack/modules/related-posts/related-posts7f79.js?ver=20150408'></script>
+<script type='text/javascript' src='../../../../wp-content/plugins/instagram-slider-widget/assets/js/jquery.flexslider-mindc8c.js?ver=2.2'></script>
+<link rel='https://api.w.org/' href='../../../../wp-json/index.html' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="../../../../xmlrpc0db0.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="../../../../wp-includes/wlwmanifest.xml" /> 
+<link rel='prev' title='Using &#8220;flex&#8221; property in CSS to define webpage layout' href='../using-flex-property-in-css-to-define-webpage-layout/index.html' />
+<link rel='next' title='Global npm Install without Sudo' href='../../28/global-npm-install-without-sudo/index.html' />
+<meta name="generator" content="WordPress 4.8.3" />
+<link rel="canonical" href="index.html" />
+<link rel='shortlink' href='https://wp.me/p9jW1T-tN' />
+<link rel="alternate" type="application/json+oembed" href="../../../../wp-json/oembed/1.0/embed6be4.json?url=https%3A%2F%2Fokkhor.org%2F2017%2F10%2F27%2Fhow-to-create-private-git-server%2F" />
+<link rel="alternate" type="text/xml+oembed" href="../../../../wp-json/oembed/1.0/embed5695?url=https%3A%2F%2Fokkhor.org%2F2017%2F10%2F27%2Fhow-to-create-private-git-server%2F&amp;format=xml" />
+			<meta property="fb:pages" content="1490677871039344" />
+							<meta property="ia:markup_url_dev" content="https://okkhor.org/2017/10/27/how-to-create-private-git-server/?ia_markup=1" />
+						<link rel="amphtml" href="index9a79.html?amp_markup=1">
+		<script>jQuery(document).ready(function ($) {
+    setTimeout(function () {
+        jQuery('div.flex-viewport').each(function (index) {
+            jQuery(this).css('height', '');
+        });
+    }, 500);
+});
+</script>
+<script>/*! Lazy Load XT v1.1.0 2016-01-12
+ * http://ressio.github.io/lazy-load-xt
+ * (C) 2016 RESS.io
+ * Licensed under MIT */
+
+(function ($, window, document, undefined) {
+    // options
+    var lazyLoadXT = 'lazyLoadXT',
+            dataLazied = 'lazied',
+            load_error = 'load error',
+            classLazyHidden = 'lazy-hidden',
+            docElement = document.documentElement || document.body,
+            //  force load all images in Opera Mini and some mobile browsers without scroll event or getBoundingClientRect()
+            forceLoad = (window.onscroll === undefined || !!window.operamini || !docElement.getBoundingClientRect),
+            options = {
+                autoInit: true, // auto initialize in $.ready
+                selector: 'img[data-src]', // selector for lazyloading elements
+                blankImage: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'.concat(Math.random().toString(36).substr(2)),
+                throttle: 99, // interval (ms) for changes check
+                forceLoad: forceLoad, // force auto load all images
+
+                //loadEvent: 'pageshow', // check AJAX-loaded content in jQueryMobile
+                updateEvent: 'load orientationchange resize scroll touchmove focus', // page-modified events
+                forceEvent: 'lazyloadall', // force loading of all elements
+
+                //onstart: null,
+                oninit: {removeClass: 'lazy'}, // init handler
+                onshow: {addClass: classLazyHidden}, // start loading handler
+                onload: {removeClass: classLazyHidden, addClass: 'lazy-loaded'}, // load success handler
+                onerror: {removeClass: classLazyHidden}, // error handler
+                //oncomplete: null, // complete handler
+
+                //scrollContainer: undefined,
+                checkDuplicates: true
+            },
+            elementOptions = {
+                srcAttr: 'data-src',
+                edgeX: 0,
+                edgeY: 512,
+                visibleOnly: true
+            },
+            $window = $(window),
+            $isFunction = $.isFunction,
+            $extend = $.extend,
+            $data = $.data || function (el, name) {
+                return $(el).data(name);
+            },
+            elements = [],
+            topLazy = 0,
+            /*
+             waitingMode=0 : no setTimeout
+             waitingMode=1 : setTimeout, no deferred events
+             waitingMode=2 : setTimeout, deferred events
+             */
+            waitingMode = 0;
+
+    $[lazyLoadXT] = $extend(options, elementOptions, $[lazyLoadXT]);
+
+    /**
+     * Return options.prop if obj.prop is undefined, otherwise return obj.prop
+     * @param {*} obj
+     * @param {*} prop
+     * @returns *
+     */
+    function getOrDef(obj, prop) {
+        return obj[prop] === undefined ? options[prop] : obj[prop];
+    }
+
+    /**
+     * @returns {number}
+     */
+    function scrollTop() {
+        var scroll = window.pageYOffset;
+        return (scroll === undefined) ? docElement.scrollTop : scroll;
+    }
+
+    /**
+     * Add new elements to lazy-load list:
+     * $(elements).lazyLoadXT() or $(window).lazyLoadXT()
+     *
+     * @param {object} [overrides] override global options
+     */
+    $.fn[lazyLoadXT] = function (overrides) {
+        overrides = overrides || {};
+
+        var blankImage = getOrDef(overrides, 'blankImage'),
+                checkDuplicates = getOrDef(overrides, 'checkDuplicates'),
+                scrollContainer = getOrDef(overrides, 'scrollContainer'),
+                forceShow = getOrDef(overrides, 'show'),
+                elementOptionsOverrides = {},
+                prop;
+
+        // empty overrides.scrollContainer is supported by both jQuery and Zepto
+        $(scrollContainer).on('scroll', queueCheckLazyElements);
+
+        for (prop in elementOptions) {
+            elementOptionsOverrides[prop] = getOrDef(overrides, prop);
+        }
+
+        return this.each(function (index, el) {
+            if (el === window) {
+                $(options.selector).lazyLoadXT(overrides);
+            } else {
+                var duplicate = checkDuplicates && $data(el, dataLazied),
+                        $el = $(el).data(dataLazied, forceShow ? -1 : 1);
+
+                // prevent duplicates
+                if (duplicate) {
+                    queueCheckLazyElements();
+                    return;
+                }
+
+                if (blankImage && el.tagName === 'IMG' && !el.src) {
+                    el.src = blankImage;
+                }
+
+                // clone elementOptionsOverrides object
+                $el[lazyLoadXT] = $extend({}, elementOptionsOverrides);
+
+                triggerEvent('init', $el);
+
+                elements.push($el);
+                queueCheckLazyElements();
+            }
+        });
+    };
+
+
+    /**
+     * Process function/object event handler
+     * @param {string} event suffix
+     * @param {jQuery} $el
+     */
+    function triggerEvent(event, $el) {
+        var handler = options['on' + event];
+        if (handler) {
+            if ($isFunction(handler)) {
+                handler.call($el[0]);
+            } else {
+                if (handler.addClass) {
+                    $el.addClass(handler.addClass);
+                }
+                if (handler.removeClass) {
+                    $el.removeClass(handler.removeClass);
+                }
+            }
+        }
+
+        $el.trigger('lazy' + event, [$el]);
+
+        // queue next check as images may be resized after loading of actual file
+        queueCheckLazyElements();
+    }
+
+
+    /**
+     * Trigger onload/onerror handler
+     * @param {Event} e
+     */
+    function triggerLoadOrError(e) {
+        triggerEvent(e.type, $(this).off(load_error, triggerLoadOrError));
+    }
+
+
+    /**
+     * Load visible elements
+     * @param {bool} [force] loading of all elements
+     */
+    function checkLazyElements(force) {
+        if (!elements.length) {
+            return;
+        }
+
+        force = force || options.forceLoad;
+
+        topLazy = Infinity;
+
+        var viewportTop = scrollTop(),
+                viewportHeight = window.innerHeight || docElement.clientHeight,
+                viewportWidth = window.innerWidth || docElement.clientWidth,
+                i,
+                length;
+
+        for (i = 0, length = elements.length; i < length; i++) {
+            var $el = elements[i],
+                    el = $el[0],
+                    objData = $el[lazyLoadXT],
+                    removeNode = false,
+                    visible = force || $data(el, dataLazied) < 0,
+                    topEdge;
+
+            // remove items that are not in DOM
+            if (!$.contains(docElement, el)) {
+                removeNode = true;
+            } else if (force || !objData.visibleOnly || el.offsetWidth || el.offsetHeight) {
+
+                if (!visible) {
+                    var elPos = el.getBoundingClientRect(),
+                            edgeX = objData.edgeX,
+                            edgeY = objData.edgeY;
+
+                    topEdge = (elPos.top + viewportTop - edgeY) - viewportHeight;
+
+                    visible = (topEdge <= viewportTop && elPos.bottom > -edgeY &&
+                            elPos.left <= viewportWidth + edgeX && elPos.right > -edgeX);
+                }
+
+                if (visible) {
+                    $el.on(load_error, triggerLoadOrError);
+
+                    triggerEvent('show', $el);
+
+                    var srcAttr = objData.srcAttr,
+                            src = $isFunction(srcAttr) ? srcAttr($el) : el.getAttribute(srcAttr);
+
+                    if (src) {
+                        el.src = src;
+                    }
+
+                    removeNode = true;
+                } else {
+                    if (topEdge < topLazy) {
+                        topLazy = topEdge;
+                    }
+                }
+            }
+
+            if (removeNode) {
+                $data(el, dataLazied, 0);
+                elements.splice(i--, 1);
+                length--;
+            }
+        }
+
+        if (!length) {
+            triggerEvent('complete', $(docElement));
+        }
+    }
+
+
+    /**
+     * Run check of lazy elements after timeout
+     */
+    function timeoutLazyElements() {
+        if (waitingMode > 1) {
+            waitingMode = 1;
+            checkLazyElements();
+            setTimeout(timeoutLazyElements, options.throttle);
+        } else {
+            waitingMode = 0;
+        }
+    }
+
+
+    /**
+     * Queue check of lazy elements because of event e
+     * @param {Event} [e]
+     */
+    function queueCheckLazyElements(e) {
+        if (!elements.length) {
+            return;
+        }
+
+        // fast check for scroll event without new visible elements
+        if (e && e.type === 'scroll' && e.currentTarget === window) {
+            if (topLazy >= scrollTop()) {
+                return;
+            }
+        }
+
+        if (!waitingMode) {
+            setTimeout(timeoutLazyElements, 0);
+        }
+        waitingMode = 2;
+    }
+
+
+    /**
+     * Initialize list of hidden elements
+     */
+    function initLazyElements() {
+        $window.lazyLoadXT();
+    }
+
+
+    /**
+     * Loading of all elements
+     */
+    function forceLoadAll() {
+        checkLazyElements(true);
+    }
+
+
+    /**
+     * Initialization
+     */
+    $(document).ready(function () {
+        triggerEvent('start', $window);
+
+        $window
+                .on(options.updateEvent, queueCheckLazyElements)
+                .on(options.forceEvent, forceLoadAll);
+
+        $(document).on(options.updateEvent, queueCheckLazyElements);
+
+        if (options.autoInit) {
+            $window.on(options.loadEvent, initLazyElements);
+            initLazyElements(); // standard initialization
+        }
+    });
+
+})(window.jQuery || window.Zepto || window.$, window, document);
+
+
+(function ($) {
+    var options = $.lazyLoadXT;
+
+    options.selector += ',video,iframe[data-src]';
+    options.videoPoster = 'data-poster';
+
+    $(document).on('lazyshow', 'video', function (e, $el) {
+        var srcAttr = $el.lazyLoadXT.srcAttr,
+                isFuncSrcAttr = $.isFunction(srcAttr),
+                changed = false;
+
+        $el.attr('poster', $el.attr(options.videoPoster));
+        $el.children('source,track')
+                .each(function (index, el) {
+                    var $child = $(el),
+                            src = isFuncSrcAttr ? srcAttr($child) : $child.attr(srcAttr);
+                    if (src) {
+                        $child.attr('src', src);
+                        changed = true;
+                    }
+                });
+
+        // reload video
+        if (changed) {
+            this.load();
+        }
+    });
+
+})(window.jQuery || window.Zepto || window.$);
+</script><meta property="fb:pages" content="104420056995361" />
+<link rel='dns-prefetch' href='http://v0.wordpress.com/'/>
+<link rel='dns-prefetch' href='http://i0.wp.com/'/>
+<link rel='dns-prefetch' href='http://i1.wp.com/'/>
+<link rel='dns-prefetch' href='http://i2.wp.com/'/>
+<link rel='dns-prefetch' href='http://jetpack.wordpress.com/'/>
+<link rel='dns-prefetch' href='http://s0.wp.com/'/>
+<link rel='dns-prefetch' href='http://s1.wp.com/'/>
+<link rel='dns-prefetch' href='http://s2.wp.com/'/>
+<link rel='dns-prefetch' href='http://public-api.wordpress.com/'/>
+<link rel='dns-prefetch' href='http://0.gravatar.com/'/>
+<link rel='dns-prefetch' href='http://1.gravatar.com/'/>
+<link rel='dns-prefetch' href='http://2.gravatar.com/'/>
+<style type='text/css'>img#wpstats{display:none}</style>
+
+<!-- wpsso meta tags begin -->
+<meta name="wpsso:mark:begin" content="wpsso meta tags begin"/>
+<!-- generator:1 --><meta name="generator" content="WPSSO Core 3.48.0/G"/>
+<link rel="publisher" href="https://plus.google.com/+AarifHasan"/>
+<meta property="fb:app_id" content="183734058850506"/>
+<meta property="og:url" content="https://okkhor.org/2017/10/27/how-to-create-private-git-server/"/>
+<meta property="og:type" content="article"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:site_name" content="Okkhor.org -Tech Blog &ge; Guides Software Tutorials"/>
+<meta property="og:title" content="How to create private git server"/>
+<meta property="og:description" content="Github, Bitbucket or Gitlab are common git servers you have heard of. But do you know that you can also create your own git server with just a few lines of commands? Today I&rsquo;m going to show you how to do that. In this post, I am assuming that you have your own VPS server which is... #git #okkhor"/>
+<!-- og:image:1 --><meta property="og:image" content="https://i2.wp.com/okkhor.org/wp-content/uploads/2017/10/GIT-SVN.jpg?resize=600%2C315&#038;ssl=1"/>
+<!-- og:image:1 --><meta property="og:image:width" content="600"/>
+<!-- og:image:1 --><meta property="og:image:height" content="315"/>
+<meta property="article:published_time" content="2017-10-27T01:16:28+00:00"/>
+<meta property="article:modified_time" content="2017-10-29T20:27:54+00:00"/>
+<meta property="article:section" content="Internet Tools"/>
+<!-- article:tag:1 --><meta property="article:tag" content="git"/>
+<!-- article:tag:2 --><meta property="article:tag" content="okkhor"/>
+<meta property="og:updated_time" content="2017-10-29T20:27:54+00:00"/>
+<meta name="weibo:article:create_at" content="2017-10-27 01:16:28"/>
+<meta name="weibo:article:update_at" content="2017-10-29 20:27:54"/>
+<meta name="twitter:domain" content="okkhor.org"/>
+<meta name="twitter:site" content="@okkhorx"/>
+<meta name="twitter:title" content="How to create private git server"/>
+<meta name="twitter:description" content="Github, Bitbucket or Gitlab are common git servers you have heard of. But do you know that you can also create your own git server with just a few lines of commands? Today I&rsquo;m going... #git #okkhor"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://i2.wp.com/okkhor.org/wp-content/uploads/2017/10/GIT-SVN.jpg?resize=600%2C315&#038;ssl=1"/>
+<link itemprop="url" href="index.html"/>
+<meta itemprop="name" content="How to create private git server"/>
+<meta itemprop="description" content="Github, Bitbucket or Gitlab are common git servers you have heard of. But do you know that you can also create your own git server with just a few lines of commands? Today I&rsquo;m going to show you how to do that. In this post, I am assuming that you..."/>
+<meta itemprop="datePublished" content="2017-10-27T01:16:28+00:00"/>
+<meta itemprop="dateModified" content="2017-10-29T20:27:54+00:00"/>
+<meta name="author" content="okkhor"/>
+<noscript itemprop="author" itemscope itemtype="https://schema.org/Person">
+	<meta itemprop="name" content="okkhor"/>
+</noscript>
+<noscript itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
+	<link itemprop="url" href="../../../../../i2.wp.com/okkhor.org/wp-content/uploads/2017/10/GIT-SVN3841.jpg?fit=800%2C420&amp;ssl=1"/>
+	<meta itemprop="width" content="800"/>
+	<meta itemprop="height" content="420"/>
+</noscript>
+<meta name="wpsso:mark:end" content="wpsso meta tags end"/>
+<!-- wpsso meta tags end -->
+<!-- added on 2018-03-12T08:57:46+00:00 in 0.000657 secs -->
+<meta name="description" content="Github, Bitbucket or Gitlab are common git servers you have heard of. But do you know that you can also create your own git server with just a few lines of commands? Today I&#039;m going to show you how to do that. In this post, I am assuming that you have your own VPS server&hellip;" />
+<link rel="amphtml" href="amp/index.html" /><link rel="icon" href="../../../../../i1.wp.com/okkhor.org/wp-content/uploads/2017/10/favicon_1506122034243_195e44-1e43b.png?fit=32%2C32&amp;ssl=1" sizes="32x32" />
+<link rel="icon" href="../../../../../i1.wp.com/okkhor.org/wp-content/uploads/2017/10/favicon_1506122034243_195e44-1f9b5.png?fit=180%2C180&amp;ssl=1" sizes="192x192" />
+<link rel="apple-touch-icon-precomposed" href="../../../../../i1.wp.com/okkhor.org/wp-content/uploads/2017/10/favicon_1506122034243_195e44-1f9b5.png?fit=180%2C180&amp;ssl=1" />
+<meta name="msapplication-TileImage" content="https://i1.wp.com/okkhor.org/wp-content/uploads/2017/10/favicon_1506122034243_195e44-1.png?fit=180%2C180&#038;ssl=1" />
+<!-- BEGIN GADWP v5.1.2.2 Universal Analytics - https://deconf.com/google-analytics-dashboard-wordpress/ -->
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','../../../../../www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-108798133-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- END GADWP Universal Analytics -->
+	
+</head>
+
+
+<body class="post-template-default single single-post postid-1847 single-format-standard smooth-scrolling sticky-nav sticky-sidebar ">
+
+<div id="wrapper">
+
+		<div class="main-navigation-wrapper">
+
+						<div id="top-social-items">
+				<div id="top-social-items-inner">
+				
+					<a href="https://m.facebook.com/okkhor.org/" target="_blank"><i class="fa fa-facebook"></i></a>					<a href="https://twitter.com/okkhororg" target="_blank"><i class="fa fa-twitter"></i></a>					<a href="https://www.instagram.com/okkhororg/" target="_blank"><i class="fa fa-instagram"></i></a>					<a href="#" target="_blank"><i class="fa fa-pinterest"></i></a>										<a href="https://plus.google.com/+AarifHasan" target="_blank"><i class="fa fa-google-plus"></i></a>					<a href="https://okkhororg.tumblr.com/" target="_blank"><i class="fa fa-tumblr"></i></a>														
+				</div>
+			</div>
+				
+			<div class="container clearfix">
+				
+				<nav class="main-navigation clearfix ">
+				<ul id="menu-main-menu" class="nav-menu"><li id="menu-item-1718" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1718"><a href="../../../../index.html" itemprop="url">Home</a></li>
+<li id="menu-item-1804" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1804"><a href="../../../../about-me-2/index.html" itemprop="url">About</a></li>
+<li id="menu-item-1769" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-1769"><a href="#" itemprop="url">Categories</a>
+<ul  class="sub-menu">
+	<li id="menu-item-1864" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-1864"><a href="../../../../category/git/index.html" itemprop="url">Git</a></li>
+	<li id="menu-item-1865" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1865"><a href="../../../../category/tools/index.html" itemprop="url">Tools</a></li>
+	<li id="menu-item-1866" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1866"><a href="../../../../category/python/index.html" itemprop="url">Python</a></li>
+	<li id="menu-item-1867" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1867"><a href="../../../../category/linux/index.html" itemprop="url">Linux</a></li>
+</ul>
+</li>
+<li id="menu-item-1717" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1717"><a href="../../../../contact-me/index.html" itemprop="url">Contact</a></li>
+</ul>				</nav>
+					
+				<div class="menu-mobile"></div>
+				
+								<div class="top-search-area">
+					<a href="#"><i class="fa fa-search"></i></a>
+					<div class="search-form-area">
+						
+<form role="search" method="get" class="search-form" action="https://okkhor.org/">
+    <div>
+		<input type="text" placeholder="Start Typing and Hit Enter..." name="s" class="search" />
+		<button type="submit" class="search-submit"><i class="fa fa-search"></i></button>
+	 </div>
+</form>					</div>
+				</div>
+								
+			</div>
+
+		</div>
+
+		<header id="main-header">
+			<div id="main-top-wrapper">
+				<div class="container">
+					
+					<div id="logo">
+						
+													<h1><a href="../../../../index.html"><img src="../../../../wp-content/uploads/2017/10/logo.png_150942246361701.png" width="400" height="146" alt="Okkhor.org -Tech Blog ≥ Guides Software Tutorials" /></a></h1>
+												
+					</div>
+
+										
+				</div>
+			</div>
+		
+		</header>
+
+			
+
+	
+	<div id="main-container">
+
+		<div class="container sidebar-open clearfix">	
+		
+			<div id="content">
+														
+					
+<div id="post-1847" class="article-item post post-1847 type-post status-publish format-standard has-post-thumbnail hentry category-git tag-git tag-okkhor">
+	
+	
+		<div class="post-header">
+
+				<div class="format-icon">
+<i class="elegant elegant-pencil2"></i>	</div>
+			
+							<h1>How to create private git server</h1>
+			
+							<div class="date-author">
+					<p>
+											<span class="cat"><a href="../../../../category/git/index.html">Git</a></span>
+										<span class='seperator'>-</span>											<span class="author">okkhor</span>
+										<span class='seperator'>-</span>											<span class="date">October 27, 2017</span>
+										</p>
+				</div>
+						
+		</div>
+							
+		
+			<div class="post-featured-item">
+		<div class="post-featured-item-inner">
+							<img width="1200" height="630" src="../../../../wp-content/uploads/2017/10/GIT-SVN.jpg" class="attachment-https://i2.wp.com/okkhor.org/wp-content/uploads/2017/10/GIT-SVN.jpg?resize=1100%2C578&amp;ssl=1x1100x578x1 size-https://i2.wp.com/okkhor.org/wp-content/uploads/2017/10/GIT-SVN.jpg?resize=1100%2C578&amp;ssl=1x1100x578x1 wp-post-image" alt="GIT SVN - How to create private git server" srcset="https://i2.wp.com/okkhor.org/wp-content/uploads/2017/10/GIT-SVN.jpg?w=1200&amp;ssl=1 1200w, https://i2.wp.com/okkhor.org/wp-content/uploads/2017/10/GIT-SVN.jpg?resize=300%2C158&amp;ssl=1 300w, https://i2.wp.com/okkhor.org/wp-content/uploads/2017/10/GIT-SVN.jpg?resize=768%2C403&amp;ssl=1 768w, https://i2.wp.com/okkhor.org/wp-content/uploads/2017/10/GIT-SVN.jpg?resize=1024%2C538&amp;ssl=1 1024w, https://i2.wp.com/okkhor.org/wp-content/uploads/2017/10/GIT-SVN.jpg?resize=800%2C420&amp;ssl=1 800w, https://i2.wp.com/okkhor.org/wp-content/uploads/2017/10/GIT-SVN.jpg?resize=600%2C315&amp;ssl=1 600w" sizes="(max-width: 1200px) 100vw, 1200px" title="How to create private git server" data-wp-pid="1848" nopin="nopin" data-attachment-id="1848" data-permalink="https://okkhor.org/2017/10/27/how-to-create-private-git-server/git-svn/" data-orig-file="https://i2.wp.com/okkhor.org/wp-content/uploads/2017/10/GIT-SVN.jpg?fit=1200%2C630&amp;ssl=1" data-orig-size="1200,630" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="GIT-SVN" data-image-description="" data-medium-file="https://i2.wp.com/okkhor.org/wp-content/uploads/2017/10/GIT-SVN.jpg?fit=300%2C158&amp;ssl=1" data-large-file="https://i2.wp.com/okkhor.org/wp-content/uploads/2017/10/GIT-SVN.jpg?fit=960%2C504&amp;ssl=1" />							
+			<div class="arrow-bg"></div>
+		</div>
+
+	</div>
+
+	
+	
+			<div class="post-entry">
+		
+		<div class="post-entry-text">
+		
+<!-- wpsso schema image for pinterest pin it button --><div class="wpsso-schema-image-for-pinterest" style="display:none;">
+<img src="../../../../../i2.wp.com/okkhor.org/wp-content/uploads/2017/10/GIT-SVN3841.jpg?fit=800%2C420&amp;ssl=1" width="0" height="0" style="width:0;height:0;" data-pin-description="Github, Bitbucket or Gitlab are common git servers you have heard of. But do you know that you can also create your own git server with just a few lines of commands? Today I&rsquo;m going to show you how to do that. In this post, I am assuming that you..." alt="GIT SVN - How to create private git server" title="How to create private git server">
+</div><!-- .wpsso-schema-image-for-pinterest -->
+<p>Github, Bitbucket or Gitlab are common git servers you have heard of. But do you know that you can also create your own git server with just a few lines of commands? Today I&rsquo;m going to show you how to do that.</p>
+<p>In this post, I am assuming that you have your own VPS server which is running Ubuntu. After SSHing to the server, please install&nbsp;<code>git</code>&nbsp;if it has not yet been installed</p>
+<p><code>sudo apt-get install git</code></p>
+<p>When&nbsp;<code>git</code>&nbsp;is ready,&nbsp;<code>cd</code>&nbsp;(change directory) to the location that you want to create the repository. And then, run the following command to create the repository</p>
+<p><code>git init --bare my_project.git</code></p>
+<p>Now, in order to clone this project from your client computer, you have to know the HTTP (HTTPS) or SSH location of your git repository. For example, on Github you often see several options like&nbsp;<code>https://github.com/puma/puma.git</code>&nbsp;or&nbsp;<code>git@github.com:puma/puma.git</code>. In this post I will only demo how to clone via SSH because it is simpler. If you want to clone your private git repository via HTTP, I recommend reading this tutorial here:&nbsp;<a href="https://www.kernel.org/pub/software/scm/git/docs/howto/setup-git-server-over-http.html">https://www.kernel.org/pub/software/scm/git/docs/howto/setup-git-server-over-http.html</a>&nbsp;(the basic idea is you need a web server to handle request to port 80 of your server, such as Apache or Nginx)</p>
+<p>The first step to clone your repos via SSH is to authorize your SSH key. Check on your local machine to see if you have any SSH created in&nbsp;<code>~/.ssh</code>&nbsp;folder. If not, please generate new SSH key by following the tutorial here&nbsp;<a href="https://help.github.com/articles/generating-ssh-keys/">https://help.github.com/articles/generating-ssh-keys/</a></p>
+<p>Next, copy the content of your public key (the file which ends with .pub extension). On the server, create a new file (or modify it if exists) at&nbsp;<code>~/.ssh/authorized_keys</code></p>
+<p><code>nano ~/.ssh/authorized_keys</code></p>
+<p>Paste the content of your local public key as a new line into this file. By doing this, you will be authorized by the server and no need to type username or password when doing things via SSH</p>
+<p>Finally, clone git repos from server to your local machine, replace placeholders with appropriate value.</p>
+<p><code>git clone username@ipserver:path_to_git_repos</code></p>
+<p>For example, if the location of your private git on server is&nbsp;<code>/home/ubuntu/test.git</code>, username is&nbsp;<code>ubuntu</code>&nbsp;and server domain is&nbsp;<code>example.com</code>, you will run the following command:</p>
+<p><code>git clone ubuntu@example.com:/home/ubuntu/test.git</code></p>
+
+<div id="jp-relatedposts" class="jp-relatedposts">
+	<h3 class="jp-relatedposts-headline"><em>Related</em></h3>
+</div>
+				</div>
+	</div>
+
+			<div class="post-entry-bottom clearfix">
+															<div class="post-tags">
+						<em>Tags</em> | <a href="../../../../tag/git/index.html" rel="tag">git</a>, <a href="../../../../tag/okkhor/index.html" rel="tag">okkhor</a>					</div>
+							
+			<!-- Like Button -->
+			<div class="like-comment-buttons-wrapper clearfix">
+				<div class="like-comment-buttons">
+					<a href="#" class="jm-post-like" data-post_id="1847" title="Like"><i class="fa fa-heart-o unlike"></i>&nbsp;0</a>					<a class="comment-button" href="index.html#respond"><i class="fa fa-comment-o"></i> 0</a>				</div>
+			</div>
+			<!-- Like Button -->
+		</div>
+	
+		
+</div>
+
+<!-- Share Buttons -->
+		<div class="post-share">
+			<div class="box-title-area"><h4 class="title">Share This Post!</h4></div>
+			<div class="post-share-inner">
+				<ul>
+					<li class="share-item facebook"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fokkhor.org%2F2017%2F10%2F27%2Fhow-to-create-private-git-server%2F"><span class="share-box"><i class="fa fa-facebook"></i></span></a></li>
+					<li class="share-item twitter"><a target="_blank" href="https://twitter.com/intent/tweet?text=How+to+create+private+git+server+-+https%3A%2F%2Fokkhor.org%2F2017%2F10%2F27%2Fhow-to-create-private-git-server%2F"><span class="share-box"><i class="fa fa-twitter"></i></span></a></li>
+										<li class="share-item pinterest"><a target="_blank" href="https://pinterest.com/pin/create/button/?url=https%3A%2F%2Fokkhor.org%2F2017%2F10%2F27%2Fhow-to-create-private-git-server%2F&amp;media=https%3A%2F%2Fi2.wp.com%2Fokkhor.org%2Fwp-content%2Fuploads%2F2017%2F10%2FGIT-SVN.jpg%3Fresize%3D1100%252C578%26ssl%3D1&amp;description=How+to+create+private+git+server"><span class="share-box"><i class="fa fa-pinterest"></i></span></a></li>
+					<li class="share-item google"><a target="_blank" href="https://plus.google.com/share?url=https%3A%2F%2Fokkhor.org%2F2017%2F10%2F27%2Fhow-to-create-private-git-server%2F"><span class="share-box"><i class="fa fa-google-plus"></i></span></a></li>
+					<li class="share-item e-mail"><a target="_blank" href="mailto:?Subject=How+to+create+private+git+server&amp;Body=https%3A%2F%2Fokkhor.org%2F2017%2F10%2F27%2Fhow-to-create-private-git-server%2F"><span class="share-box"><i class="fa fa-envelope-o"></i></span></a></li>
+				</ul>
+			</div>
+		</div>
+	<!-- Share Buttons -->
+
+	
+<div class="post-author">
+
+	<div class="author-img">
+		<img alt='' src='https://secure.gravatar.com/avatar/4e3fa9fd49fd9a20eb8a47b5110fdee5?s=85&amp;d=monsterid&amp;r=g' srcset='https://secure.gravatar.com/avatar/4e3fa9fd49fd9a20eb8a47b5110fdee5?s=170&amp;d=monsterid&amp;r=g 2x' class='avatar avatar-85 photo' height='85' width='85' />	</div>
+	
+	<div class="author-content">
+		<div class="box-title-area"><h4 class="title">About Author / <a href="../../../../author/okkhor/index.html" title="Posts by okkhor" rel="author">okkhor</a></h4></div>
+		<div class="author-info">
+			<p></p>
+																				</div>
+	</div>
+	
+</div>
+			<div class="related-posts"><div class="box-title-area"><h4 class="title">You Might Also Like</h4></div>
+		<div class="related-posts-inner clearfix"><div class="item">
+					
+										<a href="../install-python-and-pip-as-local-user-on-shared-linux/index.html"><img width="650" height="440" src="../../../../../i1.wp.com/okkhor.org/wp-content/uploads/2017/10/TNW-Professional-Python-Linux-Administration-Bundled762.jpg?resize=650%2C440&amp;ssl=1" class="attachment-thumbnail-grid size-thumbnail-grid wp-post-image" alt="TNW Professional Python Linux Administration Bundle - Install python and pip as local user on shared Linux" srcset="https://i1.wp.com/okkhor.org/wp-content/uploads/2017/10/TNW-Professional-Python-Linux-Administration-Bundle.jpg?zoom=2&amp;resize=650%2C440&amp;ssl=1 1300w, https://i1.wp.com/okkhor.org/wp-content/uploads/2017/10/TNW-Professional-Python-Linux-Administration-Bundle.jpg?zoom=3&amp;resize=650%2C440&amp;ssl=1 1950w" sizes="(max-width: 650px) 100vw, 650px" title="Install python and pip as local user on shared Linux" data-wp-pid="1836" nopin="nopin" data-attachment-id="1836" data-permalink="https://okkhor.org/2017/10/27/install-python-and-pip-as-local-user-on-shared-linux/tnw-professional-python-linux-administration-bundle/" data-orig-file="https://i1.wp.com/okkhor.org/wp-content/uploads/2017/10/TNW-Professional-Python-Linux-Administration-Bundle.jpg?fit=1612%2C806&amp;ssl=1" data-orig-size="1612,806" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="TNW-Professional-Python-Linux-Administration-Bundle" data-image-description="" data-medium-file="https://i1.wp.com/okkhor.org/wp-content/uploads/2017/10/TNW-Professional-Python-Linux-Administration-Bundle.jpg?fit=300%2C150&amp;ssl=1" data-large-file="../../../../../i1.wp.com/okkhor.org/wp-content/uploads/2017/10/TNW-Professional-Python-Linux-Administration-Bundle043c.jpg?fit=960%2C480&amp;ssl=1" /></a>
+					
+					
+					<h3><a href="../install-python-and-pip-as-local-user-on-shared-linux/index.html">Install python and pip as local user on shared Linux</a></h3>
+					<span class="date">October 27, 2017</span>
+					
+				</div><div class="item">
+					
+										<a href="../../30/configure-ssh-multiple-github-accounts/index.html"><img width="650" height="440" src="../../../../../i2.wp.com/okkhor.org/wp-content/uploads/2017/10/git-goodnessd762.gif?resize=650%2C440&amp;ssl=1" class="attachment-thumbnail-grid size-thumbnail-grid wp-post-image" alt="git goodness - How to configure SSH for multiple Github accounts?" title="How to configure SSH for multiple Github accounts?" data-wp-pid="1819" nopin="nopin" data-attachment-id="1819" data-permalink="https://okkhor.org/2017/10/27/how-to-configure-ssh-for-multiple-github-accounts__trashed/git-goodness-2/" data-orig-file="https://i2.wp.com/okkhor.org/wp-content/uploads/2017/10/git-goodness.gif?fit=1600%2C800&amp;ssl=1" data-orig-size="1600,800" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="git-goodness" data-image-description="" data-medium-file="https://i2.wp.com/okkhor.org/wp-content/uploads/2017/10/git-goodness.gif?fit=300%2C150&amp;ssl=1" data-large-file="../../../../../i2.wp.com/okkhor.org/wp-content/uploads/2017/10/git-goodness043c.gif?fit=960%2C480&amp;ssl=1" /></a>
+					
+					
+					<h3><a href="../../30/configure-ssh-multiple-github-accounts/index.html">How to configure SSH for multiple Github accounts?</a></h3>
+					<span class="date">October 30, 2017</span>
+					
+				</div><div class="item">
+					
+										<a href="../using-flex-property-in-css-to-define-webpage-layout/index.html"><img width="580" height="340" src="../../../../../i1.wp.com/okkhor.org/wp-content/uploads/2017/10/flexbox1ecd.jpg?resize=580%2C340&amp;ssl=1" class="attachment-thumbnail-grid size-thumbnail-grid wp-post-image" alt="flexbox - Using &quot;flex&quot; property in CSS to define webpage layout" srcset="https://i1.wp.com/okkhor.org/wp-content/uploads/2017/10/flexbox.jpg?w=580&amp;ssl=1 580w, https://i1.wp.com/okkhor.org/wp-content/uploads/2017/10/flexbox.jpg?resize=300%2C176&amp;ssl=1 300w" sizes="(max-width: 580px) 100vw, 580px" title="Using &quot;flex&quot; property in CSS to define webpage layout" data-wp-pid="1845" nopin="nopin" data-attachment-id="1845" data-permalink="https://okkhor.org/2017/10/27/using-flex-property-in-css-to-define-webpage-layout/flexbox/" data-orig-file="https://i1.wp.com/okkhor.org/wp-content/uploads/2017/10/flexbox.jpg?fit=580%2C340&amp;ssl=1" data-orig-size="580,340" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="flexbox" data-image-description="" data-medium-file="https://i1.wp.com/okkhor.org/wp-content/uploads/2017/10/flexbox.jpg?fit=300%2C176&amp;ssl=1" data-large-file="../../../../../i1.wp.com/okkhor.org/wp-content/uploads/2017/10/flexbox7c5b.jpg?fit=580%2C340&amp;ssl=1" /></a>
+					
+					
+					<h3><a href="../using-flex-property-in-css-to-define-webpage-layout/index.html">Using &#8220;flex&#8221; property in CSS to define webpage layout</a></h3>
+					<span class="date">October 27, 2017</span>
+					
+				</div>		</div>
+		</div>
+
+	
+			<div class="post-comments" id="comments">
+	<div class="box-title-area"><h4 class="title">No Comment</h4></div><div class='comments'></div><div id='comments_pagination'></div><div class='commment-form-wrapper' data-required-text='Please fill the required field.' data-email-check-text='Please enter a valid email address.'>
+		<div id="respond" class="comment-respond">
+							<h3 id="reply-title" class="comment-reply-title">Leave a Reply					<small><a rel="nofollow" id="cancel-comment-reply-link" href="index.html#respond" style="display:none;">Cancel reply</a></small>
+				</h3>
+						<form id="commentform" class="comment-form">
+				<iframe src="https://jetpack.wordpress.com/jetpack-comment/?blogid=137738325&amp;postid=1847&amp;comment_registration=0&amp;require_name_email=1&amp;stc_enabled=1&amp;stb_enabled=1&amp;show_avatars=1&amp;avatar_default=monsterid&amp;greeting=Leave+a+Reply&amp;greeting_reply=Leave+a+Reply+to+%25s&amp;color_scheme=light&amp;lang=en_US&amp;jetpack_version=5.5&amp;sig=0b44cd7e38cdd69b082654bdabf1f0f7ed05c3aa#parent=https%3A%2F%2Fokkhor.org%2F2017%2F10%2F27%2Fhow-to-create-private-git-server%2F" style="width:100%; height: 430px; border:0;" name="jetpack_remote_comment" class="jetpack_remote_comment" id="jetpack_remote_comment"></iframe>
+				<!--[if !IE]><!-->
+				<script>
+					document.addEventListener('DOMContentLoaded', function () {
+						var commentForms = document.getElementsByClassName('jetpack_remote_comment');
+						for (var i = 0; i < commentForms.length; i++) {
+							commentForms[i].allowTransparency = false;
+							commentForms[i].scrolling = 'no';
+						}
+					});
+				</script>
+				<!--<![endif]-->
+			</form>
+		</div>
+
+		
+		<input type="hidden" name="comment_parent" id="comment_parent" value="" />
+
+		</div>
+		</div>
+
+	
+	
+<div class="pagination post-pagination clearfix">
+		
+		
+		<div class="older">
+		<a class="animative-btn" href="../using-flex-property-in-css-to-define-webpage-layout/index.html">
+			Previous Post		</a>
+	</div>
+		
+		<div class="newer">
+		<a class="animative-btn" href="../../28/global-npm-install-without-sudo/index.html">
+			Next Post		</a>
+	</div>
+			
+</div>										
+							</div>
+	
+			
+				<aside id="sidebar">
+				<div class="theiaStickySidebar">
+					<div id="sidebar-inner">
+						<div id="blog_subscription-3" class="widget jetpack_subscription_widget"><h4 class="widget-title">Subscribe to Blog via Email</h4>
+			<form action="#" method="post" accept-charset="utf-8" id="subscribe-blog-blog_subscription-3">
+				<div id="subscribe-text"><p>Enter your email address to subscribe to this blog and receive notifications of new posts by email.</p>
+</div>					<p id="subscribe-email">
+						<label id="jetpack-subscribe-label" for="subscribe-field-blog_subscription-3">
+							Email Address						</label>
+						<input type="email" name="email" required="required" class="required" value="" id="subscribe-field-blog_subscription-3" placeholder="Email Address" />
+					</p>
+
+					<p id="subscribe-submit">
+						<input type="hidden" name="action" value="subscribe" />
+						<input type="hidden" name="source" value="https://okkhor.org/2017/10/27/how-to-create-private-git-server/" />
+						<input type="hidden" name="sub-type" value="widget" />
+						<input type="hidden" name="redirect_fragment" value="blog_subscription-3" />
+												<input type="submit" value="Subscribe" name="jetpack_subscriptions_widget" />
+					</p>
+							</form>
+
+			<script>
+			/*
+			Custom functionality for safari and IE
+			 */
+			(function( d ) {
+				// In case the placeholder functionality is available we remove labels
+				if ( ( 'placeholder' in d.createElement( 'input' ) ) ) {
+					var label = d.querySelector( 'label[for=subscribe-field-blog_subscription-3]' );
+						label.style.clip 	 = 'rect(1px, 1px, 1px, 1px)';
+						label.style.position = 'absolute';
+						label.style.height   = '1px';
+						label.style.width    = '1px';
+						label.style.overflow = 'hidden';
+				}
+
+				// Make sure the email value is filled in before allowing submit
+				var form = d.getElementById('subscribe-blog-blog_subscription-3'),
+					input = d.getElementById('subscribe-field-blog_subscription-3'),
+					handler = function( event ) {
+						if ( '' === input.value ) {
+							input.focus();
+
+							if ( event.preventDefault ){
+								event.preventDefault();
+							}
+
+							return false;
+						}
+					};
+
+				if ( window.addEventListener ) {
+					form.addEventListener( 'submit', handler, false );
+				} else {
+					form.attachEvent( 'onsubmit', handler );
+				}
+			})( document );
+			</script>
+				
+</div><div id="jr_insta_slider-1" class="widget jr-insta-slider"><h4 class="widget-title">Random Photos</h4><div class='jr-insta-thumb'>
+<ul class='no-bullet thumbnails jr_col_3'>
+<li><a href="https://www.instagram.com/p/BdUi_vFFl1P/" target="_blank" title="May you continue to trust and rely on our Companyhellip"><img src="../../../../../scontent-atl3-1.cdninstagram.com/vp/2fd7bf1fbfe02a59f2c036d5b925f36f/5B285C75/t51.2885-15/s640x640/sh0.08/e35/25018662_1402610959867231_8037629130906271744_n.jpg" alt="May you continue to trust and rely on our Companyhellip" title="May you continue to trust and rely on our Companyhellip" /></a></li><li><a href="https://www.instagram.com/p/Be0SuN_h1mR/" target="_blank" title="A successful website does three things 1 It attracts thehellip"><img src="../../../../../scontent-atl3-1.cdninstagram.com/vp/0b4e899ba90f5102b0ef75d2f8f76834/5B382C15/t51.2885-15/s640x640/sh0.08/e35/27576065_2009200645963144_7826367953133109248_n.jpg" alt="A successful website does three things 1 It attracts thehellip" title="A successful website does three things 1 It attracts thehellip" /></a></li><li><a href="https://www.instagram.com/p/BeX-jq9lrj-/" target="_blank" title="Rejoice in the glory of India and freedom fighters onhellip"><img src="../../../../../scontent-atl3-1.cdninstagram.com/vp/c075d305b725ca93a85b3cdc34a06539/5B470E99/t51.2885-15/s640x640/sh0.08/e35/26184533_2027159640897305_3774880502012444672_n.jpg" alt="Rejoice in the glory of India and freedom fighters onhellip" title="Rejoice in the glory of India and freedom fighters onhellip" /></a></li><li><a href="https://www.instagram.com/p/BdcvMZFFeQv/" target="_blank" title="One of the most valuable benefits of internet marketing ishellip"><img src="../../../../../scontent-atl3-1.cdninstagram.com/vp/1c09a64022aafa1d94b13cc0aba4e4b2/5B421B9B/t51.2885-15/s640x640/sh0.08/e35/26151774_179543609458620_8765111464596865024_n.jpg" alt="One of the most valuable benefits of internet marketing ishellip" title="One of the most valuable benefits of internet marketing ishellip" /></a></li><li><a href="https://www.instagram.com/p/BeVWKQ-F2md/" target="_blank" title="The best way of promoting your business and services onlinehellip"><img src="../../../../../scontent-atl3-1.cdninstagram.com/vp/e27e504157c37bf46659da795e1b62a9/5B2CD14A/t51.2885-15/s640x640/sh0.08/e35/26310563_444005996015864_7547984154579697664_n.jpg" alt="The best way of promoting your business and services onlinehellip" title="The best way of promoting your business and services onlinehellip" /></a></li><li><a href="https://www.instagram.com/p/BeFy0_sF0lA/" target="_blank" title="Online marketing is the marketing of products and services onhellip"><img src="../../../../../scontent-atl3-1.cdninstagram.com/vp/7d2b155bba884c5f38c8837ea31a6b83/5B4BC9BD/t51.2885-15/s640x640/sh0.08/e35/c144.0.1098.1098/26070180_205720429986514_1807440852268613632_n.jpg" alt="Online marketing is the marketing of products and services onhellip" title="Online marketing is the marketing of products and services onhellip" /></a></li><li><a href="https://www.instagram.com/p/Bd1pi59FMDy/" target="_blank" title="Our jobs as a marketer is to connect with peoplehellip"><img src="../../../../../scontent-atl3-1.cdninstagram.com/vp/7cd07ac21a73dc747b03f58ae9110c98/5B4884C8/t51.2885-15/s640x640/sh0.08/e35/26262395_2608061062665704_9049178578624708608_n.jpg" alt="Our jobs as a marketer is to connect with peoplehellip" title="Our jobs as a marketer is to connect with peoplehellip" /></a></li><li><a href="https://www.instagram.com/p/Bf2VUOEhgQf/" target="_blank" title="May this Festival of Colors bring more cheerful Colors inhellip"><img src="../../../../../scontent-atl3-1.cdninstagram.com/vp/1ecb76a61e10a13ed8df1d354af9bc78/5B435F14/t51.2885-15/s640x640/sh0.08/e35/28429696_154390681935754_4832320773345509376_n.jpg" alt="May this Festival of Colors bring more cheerful Colors inhellip" title="May this Festival of Colors bring more cheerful Colors inhellip" /></a></li><li><a href="https://www.instagram.com/p/BfdXEe4BkRq/" target="_blank" title="Advertising is a means of communication with the probable usershellip"><img src="../../../../../scontent-atl3-1.cdninstagram.com/vp/a730ceb7cd3930c3b4c5f295ea53b1e0/5B37C969/t51.2885-15/s640x640/sh0.08/e35/c19.0.1096.1096/27880166_208877563187606_1734686636010110976_n.jpg" alt="Advertising is a means of communication with the probable usershellip" title="Advertising is a means of communication with the probable usershellip" /></a></li></ul>
+</div></div><div id="categories-3" class="widget widget_categories"><h4 class="widget-title">Categories</h4>		<ul>
+	<li class="cat-item cat-item-26"><a href="../../../../category/git/index.html" >Git</a> (2)
+</li>
+	<li class="cat-item cat-item-31"><a href="../../../../category/linux/index.html" >Linux</a> (5)
+</li>
+	<li class="cat-item cat-item-39"><a href="../../../../category/node-js/index.html" >Node.js</a> (1)
+</li>
+	<li class="cat-item cat-item-54"><a href="../../../../category/php/index.html" >PHP</a> (1)
+</li>
+	<li class="cat-item cat-item-30"><a href="../../../../category/python/index.html" >Python</a> (1)
+</li>
+	<li class="cat-item cat-item-34"><a href="../../../../category/tools/index.html" >Tools</a> (2)
+</li>
+	<li class="cat-item cat-item-1"><a href="../../../../category/uncategorized/index.html" >Uncategorized</a> (1)
+</li>
+	<li class="cat-item cat-item-55"><a href="../../../../category/wordpress/index.html" >Wordpress</a> (1)
+</li>
+		</ul>
+</div>					</div>
+				</div>
+			</aside>
+				
+		</div>
+
+	</div>
+
+	
+		
+
+			<div id="alternate-widget-area">
+
+			
+			<div id="jr_insta_slider-2" class="widget jr-insta-slider"><div class='jr-insta-thumb'>
+<ul class='no-bullet thumbnails jr_col_8'>
+<li><a href="https://www.instagram.com/p/Bfkww8GgUNr/" target="_blank" title="bichanakandi sylhet Bangladesh       hellip"><img src="../../../../../scontent-atl3-1.cdninstagram.com/vp/8b735a254f39e179849238b4390c155e/5B3F591A/t51.2885-15/s640x640/sh0.08/e35/c180.0.720.720/27892725_155693795134871_6541484042213130240_n.jpg" alt="bichanakandi sylhet Bangladesh       hellip" title="bichanakandi sylhet Bangladesh       hellip" /></a></li><li><a href="https://www.instagram.com/p/Bfaefflg8_z/" target="_blank" title="University of Chittagong Bangladesh      hellip"><img src="../../../../../scontent-atl3-1.cdninstagram.com/vp/103d35c9d1893569a8514de039008cff/5B43142B/t51.2885-15/e35/28155296_550871655276438_9042369049710821376_n.jpg" alt="University of Chittagong Bangladesh      hellip" title="University of Chittagong Bangladesh      hellip" /></a></li><li><a href="https://www.instagram.com/p/BfYyQtHAZMp/" target="_blank" title="Coxs Bazar Chittagong Bangladesh      hellip"><img src="../../../../../scontent-atl3-1.cdninstagram.com/vp/9603d63925a9809c96868dec04c7f402/5B492D36/t51.2885-15/s640x640/sh0.08/e35/c201.0.678.678/27891923_1983017915294366_1002126980960747520_n.jpg" alt="Coxs Bazar Chittagong Bangladesh      hellip" title="Coxs Bazar Chittagong Bangladesh      hellip" /></a></li><li><a href="https://www.instagram.com/p/Bfd44RgAOYO/" target="_blank" title="Natural Beautiesbichanakandi sylhet Bangladesh      hellip"><img src="../../../../../scontent-atl3-1.cdninstagram.com/vp/e2a16707dbc831f4ad8327c95dfe703a/5B2FDFB6/t51.2885-15/s640x640/sh0.08/e35/c0.135.1080.1080/28152211_219297135300458_8234098432722075648_n.jpg" alt="Natural Beautiesbichanakandi sylhet Bangladesh      hellip" title="Natural Beautiesbichanakandi sylhet Bangladesh      hellip" /></a></li><li><a href="https://www.instagram.com/p/BfWAXixgcA5/" target="_blank" title="Chittagong Railway Station Chittagong      hellip"><img src="../../../../../scontent-atl3-1.cdninstagram.com/vp/597279f8836235158f8d63ec55052012/5B2A7DF7/t51.2885-15/s640x640/sh0.08/e35/c0.135.1080.1080/27880457_164790444311375_7004172751523020800_n.jpg" alt="Chittagong Railway Station Chittagong      hellip" title="Chittagong Railway Station Chittagong      hellip" /></a></li><li><a href="https://www.instagram.com/p/BfhZW9yAZcE/" target="_blank" title="Good Morning Bangladesh       hellip"><img src="../../../../../scontent-atl3-1.cdninstagram.com/vp/e250454be78c2abf42cf48e7aa3bad64/5B334995/t51.2885-15/e35/c121.0.478.478/28153387_170716850378945_700857887257264128_n.jpg" alt="Good Morning Bangladesh       hellip" title="Good Morning Bangladesh       hellip" /></a></li><li><a href="https://www.instagram.com/p/BfbXPPXgc9U/" target="_blank" title="Panam Nagarpanam city Sonargaon Dhaka Bangladesh    sonargaonhellip"><img src="../../../../../scontent-atl3-1.cdninstagram.com/vp/c72883d720dd2c5fec119999b5eac721/5B3D8CA3/t51.2885-15/s640x640/sh0.08/e35/c135.0.810.810/27879378_165154257469637_9179857025939537920_n.jpg" alt="Panam Nagarpanam city Sonargaon Dhaka Bangladesh    sonargaonhellip" title="Panam Nagarpanam city Sonargaon Dhaka Bangladesh    sonargaonhellip" /></a></li><li><a href="https://www.instagram.com/p/BfXKNDrgXod/" target="_blank" title="Bikrampur Munshigonj Bangladesh       hellip"><img src="../../../../../scontent-atl3-1.cdninstagram.com/vp/4418c5a5e612b4943222c3e559dd3acf/5B4DDA20/t51.2885-15/s640x640/sh0.08/e35/c137.0.805.805/28153315_256915108181483_6527965323411324928_n.jpg" alt="Bikrampur Munshigonj Bangladesh       hellip" title="Bikrampur Munshigonj Bangladesh       hellip" /></a></li></ul>
+</div></div>
+			
+		</div>
+		
+		<div id="footer-widget-area" class="footer">
+	
+		<div class="container clearfix ">
+			
+			<div class="widget-columns">
+									<div id="gorilla_about_widget-3" class="widget first gorilla_about_widget"><h4 class="widget-title">About Me</h4>			
+			<div class="about-widget">
+				<div class="widget-content clearfix">
+												<div class="img">
+								<img src="../../../../../i0.wp.com/okkhor.org/wp-content/uploads/2017/11/Arif_Hasan72ed.jpg?fit=590%2C801&amp;ssl=1" alt="About Me" />
+							</div>
+					
+															<div class="widget-content-desription">
+						<p>I’m Arif Hasan, a full-stack, open-source web developer who specializes in PhP and Python and shares Tips, Tricks Blogging and other tech stuffs.</p>
+					</div>
+									</div>
+
+					
+			</div>
+			
+		</div>							</div>
+			
+			<div class="widget-columns">
+									<div id="gorilla_recent_post_with_thumbs_widget-5" class="widget gorilla_recent_post_with_thumbs_widget"><h4 class="widget-title">Latest Posts</h4><ul><li><div class="clearfix"><div class="thumb size_50_50"><a href="../../../11/02/how-to-install-nginx-mariadb-10-php-7-lemp-stack-in-16-1016-04/index.html"><!-- Featured Image From URL plugin --> <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTd6p4T9geixSZtTt3ROufK-JZRq__-cNdXqv7T8SH0iGwiDgR7" alt=""></a></div><div class="recent_post_text"><a href="../../../11/02/how-to-install-nginx-mariadb-10-php-7-lemp-stack-in-16-1016-04/index.html" class="recent_post_widget_header">How To Install Nginx, MariaDB 10, PHP 7 (LEMP Stack) in 16.10/16.04</a></div></div></li><li><div class="clearfix"><div class="thumb size_50_50"><a href="../../31/how-to-link-widget-titles-in-wordpress-without-using-a-plugin/index.html"><img width="150" height="150" src="../../../../../i0.wp.com/okkhor.org/wp-content/uploads/2017/10/AAEAAQAAAAAAAAkEAAAAJGIyY2ZmNTYyLTBkOGYtNDc5Yi1iNjA1LTU2NWJiNzc3MTAyYw465b.png?resize=150%2C150&amp;ssl=1" class="attachment-thumbnail size-thumbnail wp-post-image" alt="AAEAAQAAAAAAAAkEAAAAJGIyY2ZmNTYyLTBkOGYtNDc5Yi1iNjA1LTU2NWJiNzc3MTAyYw - How to Link Widget Titles in WordPress without using a plugin" title="How to Link Widget Titles in WordPress without using a plugin" /></a></div><div class="recent_post_text"><a href="../../31/how-to-link-widget-titles-in-wordpress-without-using-a-plugin/index.html" class="recent_post_widget_header">How to Link Widget Titles in WordPress without using a plugin</a></div></div></li><li><div class="clearfix"><div class="thumb size_50_50"><a href="../../30/configure-ssh-multiple-github-accounts/index.html"><img width="150" height="150" src="../../../../../i2.wp.com/okkhor.org/wp-content/uploads/2017/10/git-goodness465b.gif?resize=150%2C150&amp;ssl=1" class="attachment-thumbnail size-thumbnail wp-post-image" alt="git goodness - How to configure SSH for multiple Github accounts?" title="How to configure SSH for multiple Github accounts?" /></a></div><div class="recent_post_text"><a href="../../30/configure-ssh-multiple-github-accounts/index.html" class="recent_post_widget_header">How to configure SSH for multiple Github accounts?</a></div></div></li><li><div class="clearfix"><div class="thumb size_50_50"><a href="../../30/most-frequently-used-unix-linux-commands-with-examples/index.html"><img width="150" height="150" src="../../../../../i0.wp.com/okkhor.org/wp-content/uploads/2017/10/11674-IASHL465b.png?resize=150%2C150&amp;ssl=1" class="attachment-thumbnail size-thumbnail wp-post-image" alt="11674 IASHL - Most Frequently Used UNIX / Linux Commands (With Examples)" title="Most Frequently Used UNIX / Linux Commands (With Examples)" /></a></div><div class="recent_post_text"><a href="../../30/most-frequently-used-unix-linux-commands-with-examples/index.html" class="recent_post_widget_header">Most Frequently Used UNIX / Linux Commands (With Examples)</a></div></div></li><li><div class="clearfix"><div class="thumb size_50_50"><a href="../../29/second-linux-system/index.html"><img width="150" height="150" src="../../../../../i1.wp.com/okkhor.org/wp-content/uploads/2017/10/logo-Red-hat465b.png?resize=150%2C150&amp;ssl=1" class="attachment-thumbnail size-thumbnail wp-post-image" alt="logo Red hat - Second Linux System" title="Second Linux System" /></a></div><div class="recent_post_text"><a href="../../29/second-linux-system/index.html" class="recent_post_widget_header">Protected: Second Linux System</a></div></div></li></ul></div>							</div>
+
+			<div class="widget-columns last">
+									<div id="tag_cloud-3" class="widget widget_tag_cloud"><h4 class="widget-title">Tags</h4><div class="tagcloud"><a href="../../../../tag/chrome/index.html" class="tag-cloud-link tag-link-35 tag-link-position-1" style="font-size: 8pt;" aria-label="chrome (1 item)">chrome</a>
+<a href="../../../../tag/css/index.html" class="tag-cloud-link tag-link-37 tag-link-position-2" style="font-size: 8pt;" aria-label="css (1 item)">css</a>
+<a href="../../../../tag/extensions/index.html" class="tag-cloud-link tag-link-36 tag-link-position-3" style="font-size: 8pt;" aria-label="extensions (1 item)">extensions</a>
+<a href="../../../../tag/flex/index.html" class="tag-cloud-link tag-link-38 tag-link-position-4" style="font-size: 8pt;" aria-label="flex (1 item)">flex</a>
+<a href="../../../../tag/git/index.html" class="tag-cloud-link tag-link-27 tag-link-position-5" style="font-size: 15.636363636364pt;" aria-label="git (3 items)">git</a>
+<a href="../../../../tag/github/index.html" class="tag-cloud-link tag-link-28 tag-link-position-6" style="font-size: 8pt;" aria-label="github (1 item)">github</a>
+<a href="../../../../tag/javascript/index.html" class="tag-cloud-link tag-link-42 tag-link-position-7" style="font-size: 8pt;" aria-label="JavaScript (1 item)">JavaScript</a>
+<a href="../../../../tag/linux/index.html" class="tag-cloud-link tag-link-33 tag-link-position-8" style="font-size: 20.218181818182pt;" aria-label="linux (5 items)">linux</a>
+<a href="../../../../tag/mysqlokkhor/index.html" class="tag-cloud-link tag-link-56 tag-link-position-9" style="font-size: 8pt;" aria-label="mysqlokkhor (1 item)">mysqlokkhor</a>
+<a href="../../../../tag/netstat/index.html" class="tag-cloud-link tag-link-43 tag-link-position-10" style="font-size: 8pt;" aria-label="netstat (1 item)">netstat</a>
+<a href="../../../../tag/nginx/index.html" class="tag-cloud-link tag-link-46 tag-link-position-11" style="font-size: 12.581818181818pt;" aria-label="nginx (2 items)">nginx</a>
+<a href="../../../../tag/node-js/index.html" class="tag-cloud-link tag-link-40 tag-link-position-12" style="font-size: 8pt;" aria-label="node.js (1 item)">node.js</a>
+<a href="../../../../tag/npm/index.html" class="tag-cloud-link tag-link-41 tag-link-position-13" style="font-size: 8pt;" aria-label="npm (1 item)">npm</a>
+<a href="../../../../tag/okkhor/index.html" class="tag-cloud-link tag-link-48 tag-link-position-14" style="font-size: 22pt;" aria-label="okkhor (6 items)">okkhor</a>
+<a href="../../../../tag/php/index.html" class="tag-cloud-link tag-link-47 tag-link-position-15" style="font-size: 15.636363636364pt;" aria-label="php (3 items)">php</a>
+<a href="../../../../tag/port/index.html" class="tag-cloud-link tag-link-44 tag-link-position-16" style="font-size: 8pt;" aria-label="port (1 item)">port</a>
+<a href="../../../../tag/python/index.html" class="tag-cloud-link tag-link-32 tag-link-position-17" style="font-size: 12.581818181818pt;" aria-label="python (2 items)">python</a>
+<a href="../../../../tag/ssh/index.html" class="tag-cloud-link tag-link-29 tag-link-position-18" style="font-size: 8pt;" aria-label="ssh (1 item)">ssh</a>
+<a href="../../../../tag/sticky/index.html" class="tag-cloud-link tag-link-50 tag-link-position-19" style="font-size: 8pt;" aria-label="Sticky (1 item)">Sticky</a>
+<a href="../../../../tag/terminal/index.html" class="tag-cloud-link tag-link-45 tag-link-position-20" style="font-size: 12.581818181818pt;" aria-label="terminal (2 items)">terminal</a>
+<a href="../../../../tag/unix/index.html" class="tag-cloud-link tag-link-49 tag-link-position-21" style="font-size: 8pt;" aria-label="unix (1 item)">unix</a>
+<a href="../../../../tag/wordpress/index.html" class="tag-cloud-link tag-link-14 tag-link-position-22" style="font-size: 8pt;" aria-label="Wordpress (1 item)">Wordpress</a></div>
+</div>							</div>
+
+						
+		</div>
+		
+	</div>
+	
+	
+	
+	<footer id="footer-copyright">
+		
+		<div class="container">
+		
+			<a href="#" class="goto-top"><i class="fa fa-angle-up"></i></a>
+			
+			
+
+							<p>© 2017 okkhor.org</p>
+						
+		</div>
+		
+	</footer>
+
+</div>
+
+	<!-- Root element of PhotoSwipe. Must have class pswp. -->
+	<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+	    <!-- Background of PhotoSwipe. 
+	         It's a separate element as animating opacity is faster than rgba(). -->
+	    <div class="pswp__bg"></div>
+
+	    <!-- Slides wrapper with overflow:hidden. -->
+	    <div class="pswp__scroll-wrap">
+
+	        <!-- Container that holds slides. 
+	            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+	            Don't modify these 3 pswp__item elements, data is added later on. -->
+	        <div class="pswp__container">
+	            <div class="pswp__item"></div>
+	            <div class="pswp__item"></div>
+	            <div class="pswp__item"></div>
+	        </div>
+
+	        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+	        <div class="pswp__ui pswp__ui--hidden">
+
+	            <div class="pswp__top-bar">
+
+	                <!--  Controls are self-explanatory. Order can be changed. -->
+
+	                <div class="pswp__counter"></div>
+
+	                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+	                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+	                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+	                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+	                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+	                <!-- element will get class pswp__preloader-active when preloader is running -->
+	                <div class="pswp__preloader">
+	                    <div class="pswp__preloader__icn">
+	                      <div class="pswp__preloader__cut">
+	                        <div class="pswp__preloader__donut"></div>
+	                      </div>
+	                    </div>
+	                </div>
+	            </div>
+
+	            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+	                <div class="pswp__share-tooltip"></div> 
+	            </div>
+
+	            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+	            </button>
+
+	            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+	            </button>
+
+	            <div class="pswp__caption">
+	                <div class="pswp__caption__center"></div>
+	            </div>
+
+	        </div>
+
+	    </div>
+
+	</div>
+	
+		<div style="display:none">
+	<div class="grofile-hash-map-4e3fa9fd49fd9a20eb8a47b5110fdee5">
+	</div>
+	</div>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var ajax_var = {"url":"https:\/\/okkhor.org\/wp-admin\/admin-ajax.php","nonce":"16981e915f"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='../../../../wp-content/themes/okkhor.org/assets/js/post-like.min.js'></script>
+<script type='text/javascript' src='../../../../wp-content/plugins/jetpack/modules/photon/photonb3d9.js?ver=20130122'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var wpcf7 = {"apiSettings":{"root":"https:\/\/okkhor.org\/wp-json\/contact-form-7\/v1","namespace":"contact-form-7\/v1"},"recaptcha":{"messages":{"empty":"Please verify that you are not a robot."}},"cached":"1"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='../../../../wp-content/plugins/contact-form-7/includes/js/scripts5859.js?ver=4.9.1'></script>
+<script type='text/javascript' src='../../../../../s0.wp.com/wp-content/js/devicepx-jetpack6f77.js?ver=201811'></script>
+<script type='text/javascript' src='../../../../wp-content/themes/okkhor.org/assets/js/components.js'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var mejsL10n = {"language":"en-US","strings":{"Close":"Close","Fullscreen":"Fullscreen","Turn off Fullscreen":"Turn off Fullscreen","Go Fullscreen":"Go Fullscreen","Download File":"Download File","Download Video":"Download Video","Play":"Play","Pause":"Pause","Captions\/Subtitles":"Captions\/Subtitles","None":"None","Time Slider":"Time Slider","Skip back %1 seconds":"Skip back %1 seconds","Video Player":"Video Player","Audio Player":"Audio Player","Volume Slider":"Volume Slider","Mute Toggle":"Mute Toggle","Unmute":"Unmute","Mute":"Mute","Use Up\/Down Arrow keys to increase or decrease volume.":"Use Up\/Down Arrow keys to increase or decrease volume.","Use Left\/Right Arrow keys to advance one second, Up\/Down arrows to advance ten seconds.":"Use Left\/Right Arrow keys to advance one second, Up\/Down arrows to advance ten seconds."}};
+var _wpmejsSettings = {"pluginPath":"\/wp-includes\/js\/mediaelement\/"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='../../../../wp-includes/js/mediaelement/mediaelement-and-player.min51cd.js?ver=2.22.0'></script>
+<script type='text/javascript' src='../../../../wp-includes/js/mediaelement/wp-mediaelement.min7bcd.js?ver=4.8.3'></script>
+<script type='text/javascript' src='../../../../wp-content/themes/okkhor.org/assets/js/smooth-scroll.js'></script>
+<script type='text/javascript' src='../../../../wp-includes/js/imagesloaded.min55a0.js?ver=3.2.0'></script>
+<script type='text/javascript' src='../../../../wp-includes/js/masonry.mind617.js?ver=3.3.2'></script>
+<script type='text/javascript' src='../../../../wp-content/themes/okkhor.org/assets/js/core.js'></script>
+<script type='text/javascript' src='../../../../wp-includes/js/comment-reply.min7bcd.js?ver=4.8.3'></script>
+<script type='text/javascript' src='../../../../wp-includes/js/wp-embed.min7bcd.js?ver=4.8.3'></script>
+
+		<!--[if IE]>
+		<script type="text/javascript">
+			if ( 0 === window.location.hash.indexOf( '#comment-' ) ) {
+				// window.location.reload() doesn't respect the Hash in IE
+				window.location.hash = window.location.hash;
+			}
+		</script>
+		<![endif]-->
+		<script type="text/javascript">
+			(function () {
+				var comm_par_el = document.getElementById( 'comment_parent' ),
+					comm_par = ( comm_par_el && comm_par_el.value ) ? comm_par_el.value : '',
+					frame = document.getElementById( 'jetpack_remote_comment' ),
+					tellFrameNewParent;
+
+				tellFrameNewParent = function () {
+					if ( comm_par ) {
+						frame.src = "https://jetpack.wordpress.com/jetpack-comment/?blogid=137738325&postid=1847&comment_registration=0&require_name_email=1&stc_enabled=1&stb_enabled=1&show_avatars=1&avatar_default=monsterid&greeting=Leave+a+Reply&greeting_reply=Leave+a+Reply+to+%25s&color_scheme=light&lang=en_US&jetpack_version=5.5&sig=0b44cd7e38cdd69b082654bdabf1f0f7ed05c3aa#parent=https%3A%2F%2Fokkhor.org%2F2017%2F10%2F27%2Fhow-to-create-private-git-server%2F" + '&replytocom=' + parseInt( comm_par, 10 ).toString();
+					} else {
+						frame.src = "https://jetpack.wordpress.com/jetpack-comment/?blogid=137738325&amp;postid=1847&amp;comment_registration=0&amp;require_name_email=1&amp;stc_enabled=1&amp;stb_enabled=1&amp;show_avatars=1&amp;avatar_default=monsterid&amp;greeting=Leave+a+Reply&amp;greeting_reply=Leave+a+Reply+to+%25s&amp;color_scheme=light&amp;lang=en_US&amp;jetpack_version=5.5&amp;sig=0b44cd7e38cdd69b082654bdabf1f0f7ed05c3aa#parent=https%3A%2F%2Fokkhor.org%2F2017%2F10%2F27%2Fhow-to-create-private-git-server%2F";
+					}
+				};
+
+				
+				if ( 'undefined' !== typeof addComment ) {
+					addComment._Jetpack_moveForm = addComment.moveForm;
+
+					addComment.moveForm = function ( commId, parentId, respondId, postId ) {
+						var returnValue = addComment._Jetpack_moveForm( commId, parentId, respondId, postId ),
+							cancelClick, cancel;
+
+						if ( false === returnValue ) {
+							cancel = document.getElementById( 'cancel-comment-reply-link' );
+							cancelClick = cancel.onclick;
+							cancel.onclick = function () {
+								var cancelReturn = cancelClick.call( this );
+								if ( false !== cancelReturn ) {
+									return cancelReturn;
+								}
+
+								if ( ! comm_par ) {
+									return cancelReturn;
+								}
+
+								comm_par = 0;
+
+								tellFrameNewParent();
+
+								return cancelReturn;
+							};
+						}
+
+						if ( comm_par == parentId ) {
+							return returnValue;
+						}
+
+						comm_par = parentId;
+
+						tellFrameNewParent();
+
+						return returnValue;
+					};
+				}
+
+				
+				// Do the post message bit after the dom has loaded.
+				document.addEventListener( 'DOMContentLoaded', function () {
+					var iframe_url = "index.html\/\/jetpack.wordpress.com";
+					if ( window.postMessage ) {
+						if ( document.addEventListener ) {
+							window.addEventListener( 'message', function ( event ) {
+								var origin = event.origin.replace( /^http:\/\//i, 'https:///' );
+								if ( iframe_url.replace( /^http:\/\//i, 'https:///' ) !== origin ) {
+									return;
+								}
+								jQuery( frame ).height( event.data );
+							});
+						} else if ( document.attachEvent ) {
+							window.attachEvent( 'message', function ( event ) {
+								var origin = event.origin.replace( /^http:\/\//i, 'https:///' );
+								if ( iframe_url.replace( /^http:\/\//i, 'https:///' ) !== origin ) {
+									return;
+								}
+								jQuery( frame ).height( event.data );
+							});
+						}
+					}
+				})
+
+			})();
+		</script>
+
+		<script type='text/javascript' src='../../../../../stats.wp.com/e-201811.js' async defer></script>
+<script type='text/javascript'>
+	_stq = window._stq || [];
+	_stq.push([ 'view', {v:'ext',j:'1:5.5',blog:'137738325',post:'1847',tz:'6',srv:'okkhor.org'} ]);
+	_stq.push([ 'clickTrackerInit', '137738325', '1847' ]);
+</script>
+	
+</body>
+
+
+<!-- Mirrored from okkhor.org/2017/10/27/how-to-create-private-git-server/ by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 12 Mar 2018 09:05:50 GMT -->
+</html>
+<!-- Dynamic page generated in 0.680 seconds. -->
+<!-- Cached page generated by WP-Super-Cache on 2018-03-12 14:57:46 -->
+
+<!-- super cache -->

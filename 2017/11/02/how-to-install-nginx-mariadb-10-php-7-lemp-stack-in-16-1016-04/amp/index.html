@@ -1,0 +1,828 @@
+<!doctype html>
+<html amp lang="en-US">
+
+<!-- Mirrored from okkhor.org/2017/11/02/how-to-install-nginx-mariadb-10-php-7-lemp-stack-in-16-1016-04/amp/ by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 12 Mar 2018 09:06:31 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+	<meta charset="utf-8">
+    <link rel="dns-prefetch" href="https://cdn.ampproject.org/">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+	<link rel="icon" href="../../../../../../i1.wp.com/okkhor.org/wp-content/uploads/2017/10/favicon_1506122034243_195e44-1e43b.png?fit=32%2C32&amp;ssl=1" sizes="32x32" />
+<link rel="icon" href="../../../../../../i1.wp.com/okkhor.org/wp-content/uploads/2017/10/favicon_1506122034243_195e44-1f9b5.png?fit=180%2C180&amp;ssl=1" sizes="192x192" />
+<link rel="apple-touch-icon-precomposed" href="../../../../../../i1.wp.com/okkhor.org/wp-content/uploads/2017/10/favicon_1506122034243_195e44-1f9b5.png?fit=180%2C180&amp;ssl=1" />
+<meta name="msapplication-TileImage" content="../../../../../../i1.wp.com/okkhor.org/wp-content/uploads/2017/10/favicon_1506122034243_195e44-1f9b5.png?fit=180%2C180&amp;ssl=1" />
+
+
+<!-- wpsso meta tags begin -->
+<meta name="wpsso:mark:begin" content="wpsso meta tags begin"/>
+<!-- generator:1 --><meta name="generator" content="WPSSO Core 3.48.0/G"/>
+<link rel="publisher" href="https://plus.google.com/+AarifHasan"/>
+<meta property="fb:app_id" content="183734058850506"/>
+<meta property="og:url" content="../index.html"/>
+<meta property="og:type" content="article"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:site_name" content="Okkhor.org -Tech Blog &ge; Guides Software Tutorials"/>
+<meta property="og:title" content="How To Install Nginx, MariaDB 10, PHP 7 (LEMP Stack) in 16.10/16.04"/>
+<meta property="og:description" content="The&nbsp;LEMP&nbsp;stack is an acronym whichr representsisa group of packages (Linux OS, Nginx web server, MySQL\MariaDB database and PHP server-side dynamic programming language) which are used to deploy dynamic web applications and web pages. This tutorial will guide you on... #linux #mysqlokkhor #nginx"/>
+<!-- og:image:1 --><meta property="og:image" content="../../../../../../i0.wp.com/okkhor.org/wp-content/uploads/2017/10/tst-159d4.jpg?resize=600%2C315&amp;ssl=1"/>
+<!-- og:image:1 --><meta property="og:image:width" content="600"/>
+<!-- og:image:1 --><meta property="og:image:height" content="315"/>
+<meta property="article:published_time" content="2017-11-02T03:07:48+00:00"/>
+<meta property="article:modified_time" content="2017-11-02T03:10:28+00:00"/>
+<meta property="article:section" content="Internet Tools"/>
+<!-- article:tag:1 --><meta property="article:tag" content="linux"/>
+<!-- article:tag:2 --><meta property="article:tag" content="mysqlokkhor"/>
+<!-- article:tag:3 --><meta property="article:tag" content="nginx"/>
+<!-- article:tag:4 --><meta property="article:tag" content="php"/>
+<meta property="og:updated_time" content="2017-11-02T03:10:28+00:00"/>
+<meta name="weibo:article:create_at" content="2017-11-02 03:07:48"/>
+<meta name="weibo:article:update_at" content="2017-11-02 03:10:28"/>
+<meta name="twitter:domain" content="okkhor.org"/>
+<meta name="twitter:site" content="@okkhorx"/>
+<meta name="twitter:title" content="How To Install Nginx, MariaDB 10, PHP 7 (LEMP Stack) in 16.10/16.04"/>
+<meta name="twitter:description" content="The&nbsp;LEMP&nbsp;stack is an acronym whichr representsisa group of packages (Linux OS, Nginx web server, MySQL\MariaDB database and PHP server-side dynamic programming language)... #linux #mysqlokkhor #nginx"/>
+<meta name="twitter:card" content="summary"/>
+<link itemprop="url" href="../index.html"/>
+<meta itemprop="name" content="How To Install Nginx, MariaDB 10, PHP 7 (LEMP Stack) in 16.10/16.04"/>
+<meta itemprop="description" content="The&nbsp;LEMP&nbsp;stack is an acronym whichr representsisa group of packages (Linux OS, Nginx web server, MySQL\MariaDB database and PHP server-side dynamic programming language) which are used to deploy dynamic web applications and web pages. This..."/>
+<meta itemprop="datePublished" content="2017-11-02T03:07:48+00:00"/>
+<meta itemprop="dateModified" content="2017-11-02T03:10:28+00:00"/>
+<meta name="author" content="okkhor"/>
+<meta name="wpsso:mark:end" content="wpsso meta tags end"/>
+<!-- wpsso meta tags end -->
+<!-- added on 2018-03-12T08:59:09+00:00 in 0.000810 secs -->
+	<title>How To Install Nginx, MariaDB 10, PHP 7 (LEMP Stack) in 16.10/16.04 | Okkhor.org -Tech Blog ≥ Guides Software Tutorials</title>
+		<link rel="canonical" href="../index.html" />
+			<script custom-element="amp-social-share" src="../../../../../../cdn.ampproject.org/v0/amp-social-share-0.1.js" async></script>
+			<script custom-element="amp-analytics" src="../../../../../../cdn.ampproject.org/v0/amp-analytics-0.1.js" async></script>
+			<script custom-element="amp-sidebar" src="../../../../../../cdn.ampproject.org/v0/amp-sidebar-0.1.js" async></script>
+		<script src="../../../../../../cdn.ampproject.org/v0.js" async></script>
+		<style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+		<script type="application/ld+json">{"@context":"http:\/\/schema.org","@type":"BlogPosting","mainEntityOfPage":"https:\/\/okkhor.org\/2017\/11\/02\/how-to-install-nginx-mariadb-10-php-7-lemp-stack-in-16-1016-04\/","publisher":{"@type":"Organization","name":"Okkhor.org -Tech Blog \u2265 Guides Software Tutorials","logo":{"@type":"ImageObject","url":"https:\/\/okkhor.org\/wp-content\/uploads\/2017\/10\/931201711412.jpg","height":"60","width":"600"}},"headline":"How To Install Nginx, MariaDB 10, PHP 7 (LEMP Stack) in 16.10\/16.04","datePublished":"2017-11-02T09:07:48+00:00","dateModified":"2017-11-02T09:10:28+00:00","author":{"@type":"Person","name":"okkhor"},"image":{"@type":"ImageObject","url":"https:\/\/encrypted-tbn0.gstatic.com\/images?q=tbn:ANd9GcTd6p4T9geixSZtTt3ROufK-JZRq__-cNdXqv7T8SH0iGwiDgR7","width":0,"height":0},"description":"The\u00a0LEMP\u00a0stack is an acronym whichr representsisa group of packages (Linux OS, Nginx web server, MySQL\\\\MariaDB&hellip;"}</script>
+		<style amp-custom>
+	
+/* Global Styling */
+body{ font: 16px/1.4 Sans-serif; }
+a{ color: #312C7E; text-decoration: none }
+.clearfix, .cb{ clear: both }
+.alignleft{ margin-right: 12px; margin-bottom:5px; float: left; }
+.alignright{ float:right; margin-left: 12px; margin-bottom:5px; }
+.aligncenter{ text-align:center; margin: 0 auto }
+#statcounter{width: 1px;height:1px;}
+amp-anim { max-width: 100%; }
+@font-face {
+    font-family: 'Roboto Slab';
+    font-style: normal;
+    font-weight: 400;
+    src:  local('Roboto Slab Regular'), local('RobotoSlab-Regular'), url('../../../../../wp-content/plugins/accelerated-mobile-pages/templates/design-manager/design-3/fonts/robotoslab/RobotoSlab-Regular.ttf');
+}
+@font-face {
+    font-family: 'Roboto Slab';
+    font-style: normal;
+    font-weight: 700;
+    src:  local('Roboto Slab Bold'), local('RobotoSlab-Bold'), url('../../../../../wp-content/plugins/accelerated-mobile-pages/templates/design-manager/design-3/fonts/robotoslab/RobotoSlab-Bold.ttf');
+}
+
+@font-face {
+    font-family: 'PT Serif';
+    font-style: normal;
+    font-weight: 400;
+    src:  local('PT Serif'), local('PTSerif-Regular'), url('../../../../../wp-content/plugins/accelerated-mobile-pages/templates/design-manager/design-3/fonts/ptserif/PT_Serif-Web-Regular.ttf');
+}
+@font-face {
+    font-family: 'PT Serif';
+    font-style: normal;
+    font-weight: 700;
+    src:  local('PT Serif Bold'), local('PTSerif-Bold'), url('../../../../../wp-content/plugins/accelerated-mobile-pages/templates/design-manager/design-3/fonts/ptserif/PT_Serif-Web-Bold.ttf');
+}
+
+/* Template Styles */
+.amp-wp-content, .amp-wp-title-bar div {
+        max-width: 1000px;
+    margin: 0 auto;
+    }
+
+/* Slide Navigation code */
+amp-sidebar{ width: 280px; background: #131313; font-family: 'Roboto Slab', serif; }
+.amp-sidebar-image{ line-height: 100px; vertical-align:middle; }
+.amp-close-image{ top: 15px; left: 225px; cursor: pointer; }
+.navigation_heading{ padding: 20px 20px 15px 20px; color: #aaa; font-size: 10px; font-family: sans-serif; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #555; display: inline-block; width: 100%}
+.toggle-navigationv2 ul{ list-style-type: none; margin: 15px 0 0 0; padding: 0}
+.toggle-navigationv2 ul li a{ padding: 10px 15px 10px 20px; display: inline-block; font-size: 14px; color:#eee; width:94% }
+.amp-menu li{position:relative}
+.toggle-navigationv2 ul li a:hover{background:#666;color:#fff}
+.amp-menu li.menu-item-has-children ul{display:none;margin:0;background:#222}
+.amp-menu li.menu-item-has-children ul ul{background:#444}
+.amp-menu li.menu-item-has-children ul ul ul{background:#666}
+.amp-menu li.menu-item-has-children:hover > ul{display:block}
+.amp-menu li.menu-item-has-children:after{content:'\25be';position:absolute;padding: 10px 15px 10px 30px;right:0;font-size:18px;color:#ccc;top:0;z-index:10000;line-height:1}
+.toggle-navigationv2 .social_icons{ margin-top: 25px; border-top: 1px solid #555; padding: 25px 0px; color: #fff; width: 100%; }
+.menu-all-pages-container:after{ content: ""; clear: both }
+.toggle-text{ color: #fff; font-size: 12px; text-transform: uppercase; letter-spacing: 3px; display: inherit; text-align: center; }
+.toggle-text:before{ content: "..."; font-size: 32px; position: ; font-family: georgia; line-height: 0px; margin-left: 0px; letter-spacing: 1px; top: -3px; position: relative; padding-right: 10px; }
+.toggle-navigation:hover, .toggle-navigation:active, .toggle-navigation:focus{ display: inline-block; width: 100%; }
+/* Sticky Social bar in Single */
+.sticky_social{ width: 100%; bottom: 0; display: block; left: 0; box-shadow: 0px 4px 7px #000; background: #fff; padding: 7px 0px 0px 0px; position: fixed; margin: 0; z-index: 10; text-align: center; }
+.custom-amp-socialsharing-icon{ width: 50px; height: 28px; display: inline-block; background: #5cbe4a;position: relative; top: -8px; padding-top: 0px; }
+.custom-amp-socialsharing-icon amp-img{ top: 4px; }
+.custom-amp-socialsharing-line{background:#00b900}
+.sticky_social .whatsapp-share-icon{ padding: 4px 0px 14px 0px; height: 28px; top: -4px; position: relative; }
+.sticky_social .line-share-icon{ padding: 4px 0px 14px 0px; height: 28px; top: -4px; position: relative; }
+/*Sticky Head For Design 3*/
+#header{ background: #fff; text-align: center; height:50px; box-shadow:0 0 32px rgba(0,0,0,.15); }
+header{ padding-bottom:50px; }
+#headerwrap{ position: fixed; z-index:1000; width: 100%; top:0; }
+#header h1{ text-align: center; font-size: 16px; position: relative; font-weight: bold; line-height: 53px; padding: 0; margin: 0; text-transform: uppercase }
+main .amp-wp-content{ font-size: 18px; line-height: 29px; color:#111 }
+.single-post main .amp-wp-article-content h1{ font-size:2em}
+.single-post main .amp-wp-article-content h1, .single-post main .amp-wp-article-content h2, .single-post main .amp-wp-article-content h3, .single-post main .amp-wp-article-content h4, .single-post main .amp-wp-article-content h5, .single-post main .amp-wp-article-content h6{ font-family: 'Roboto Slab', serif; margin: 0px 0px 5px 0px; line-height: 1.6; }
+.home-post_image{ float: left; width:33%; padding-right: 2%; }
+.amp-wp-title{ margin-top: 0px; }
+h2.amp-wp-title{ font-family: 'Roboto Slab', serif; font-weight: 700; font-size: 20px; margin-bottom: 7px; line-height: 1.3; }
+h2.amp-wp-title a{ color: #000; }
+.amp-wp-tags{ list-style-type: none; padding: 0; margin: 0 0 9px 0; display: inline-flex; }
+.amp-wp-tags li{ display: inline; background: #F6F6F6; color: #9e9e9e; line-height: 1; border-radius: 50px; padding: 8px 18px; font-size: 12px; margin-right: 8px; top: -3px; position: relative; }
+.amp-loop-list{ position:relative; border-bottom: 1px solid #ededed; padding: 25px 15px 25px 15px }
+body .amp-loop-list-noimg .amp-wp-post-content{ width:100% }
+.amp-loop-list .amp-wp-post-content{ float: left; width: 65%; }
+.amp-loop-list .featured_time{ color:#b3b3b3; padding-left:0 }
+.amp-wp-post-content p{ color: grey; line-height: 1.5; font-size: 14px; margin: 8px 0 10px; font-family:'PT Serif', serif }
+/* Footer */
+#footer{ background: #151515; color: #eee; font-size: 13px; text-align: center; letter-spacing: 0.2px; padding: 35px 0 35px 0; margin-top: 30px; }
+#footer a{ color:#fff }
+#footer p:first-child{ margin-bottom: 12px; }
+#footer .social_icons{ margin: 0px 20px 25px 20px; border-bottom: 1px solid #3c3c3c; padding-bottom: 25px; }
+#footer p{ margin: 0 }
+.back-to-top{padding-bottom: 8px;}
+.rightslink, #footer .rightslink a{ font-size:13px; color:#999 }
+.poweredby{ padding-top:10px; font-size:10px; }
+#footer .poweredby a{ color:#666 }
+.footer_menu ul{ list-style-type: none; padding: 0; text-align: center; margin: 0px 20px 25px 20px; line-height: 27px; font-size: 13px }
+.footer_menu ul li{ display:inline; margin:0 10px; }
+.footer_menu ul li:first-child{ margin-left:0 }
+.footer_menu ul li:last-child{ margin-right:0 }
+.footer_menu ul ul{ display:none }
+/* Single */
+.single-post main{ margin: 20px 17px 17px 17px; }
+.amp-wp-article-content{ font-family:'PT Serif', serif; }
+.single-post .post-featured-img{ margin:0 -17px 0px -17px }
+.amp-wp-article-featured-image.wp-caption .wp-caption-text, .ampforwp-gallery-item .wp-caption-text{color: #696969; font-size: 11px; line-height: 1.5; background: #eee; margin: 0; padding: .66em .75em; text-align: center; }
+.ampforwp-gallery-item.amp-carousel-slide { padding-bottom: 20px;}
+.ampforwp-title{ padding: 0px 0px 0px 0px; margin-top: 12px; margin-bottom: 12px; }
+.comment-button-wrapper{ margin-bottom: 50px; margin-top: 30px; text-align:center }
+.comment-button-wrapper a{ color: #fff; background: #312c7e; font-size: 14px; padding: 12px 22px 12px 22px; font-family: 'Roboto Slab', serif; border-radius: 2px; text-transform: uppercase; letter-spacing: 1px; }
+h1.amp-wp-title{ margin: 0; color: #333333; font-size: 48px; line-height: 58px; font-family: 'Roboto Slab', serif; }
+.post-pagination-meta{ min-height:75px }
+.single-post .post-pagination-meta{ font-size:15px; font-family:sans-serif; min-height:auto; margin-top:-5px; line-height:26px; }
+.single-post .post-pagination-meta span{ font-weight:bold }
+.single-post .amp_author_area .amp_author_area_wrapper{ display: inline-block; width: 100%; line-height: 1.4; margin-top: 22px; font-size: 16px; color:#333; font-family: sans-serif; }
+.single-post .amp_author_area amp-img{ margin: 0; float: left; margin-right: 12px; border-radius: 60px; }
+.amp-wp-article-tags .ampforwp-tax-tag, .amp-wp-article-tags .ampforwp-tax-tag a{ font-size: 12px; color: #555; font-family: sans-serif; margin: 20px 0 0 0; }
+.amp-wp-article-tags span{ background: #eee; margin-right: 10px; padding: 5px 12px 5px 12px; border-radius: 3px; display: inline-block; margin: 5px; }
+.ampforwp-social-icons{ margin-bottom: 70px; margin-top: 25px; height: 40px; }
+.ampforwp-social-icons amp-social-share{ border-radius:60px; background-size:22px; margin-right:6px; }
+.custom-amp-socialsharing-icon-rounded{margin-right:6px;padding: 11px 12px 9px 12px; top: -13px; position: relative; line-height: 1; background: #5cbe4a; display: inline-block; height: inherit; border-radius: 60px; }
+.custom-amp-socialsharing-line{background:#00b900}
+.custom-amp-social-sharing-vk{background:#45668e}
+.custom-amp-social-sharing-odnoklassniki{background:#ed812b}
+.amp-wp-tax-tag { list-style: none; display: inline-block; }
+figure{ margin: 0 0 20px 0; }
+figure amp-img{ max-width:100%; }
+figcaption{ font-size: 11px; line-height: 1.6; margin-bottom: 11px; background: #eee; padding: 6px 8px; }
+.amp-wp-byline amp-img{ display: none; }
+.amp-wp-author{ margin-right: 1px; }
+.amp-wp-meta, .amp-wp-meta a{ font-size: 13px; color: #acacac; margin: 20px 0px 20px 0px; padding: 0; }
+.amp-ad-wrapper{ text-align: center }
+.the_content p{ margin-top: 0px; margin-bottom: 30px; }
+.amp-wp-tax-tag{ }
+main .amp-wp-content.featured-image-content{ padding: 0px; border: 0; margin-bottom: 0; box-shadow: none }
+.amp-wp-content .amp-wp-article-featured-image amp-img {margin: 0 auto;}
+.single-post .amp-wp-article-content amp-img{ max-width:100% }
+/* Related Posts */
+main .amp-wp-content.relatedpost{ background: none; box-shadow: none; padding:0px 0 0 0; margin:1.8em auto 1.5em auto }
+.single-post main,.related-title,.single-post .comments_list h3{ font-size: 20px; color: #777; font-family:'Roboto Slab', serif; border-bottom: 1px solid #eee; font-weight: 400; padding-bottom: 1px; margin-bottom: 10px; }
+.related-title {display:block}
+.related_posts ol{ list-style-type:none; margin:0; padding:0 }
+.related_posts ol li{ display:inline-block; width:100%; margin-bottom: 12px; padding: 0px; }
+.related_posts .related_link a{ color: #444; font-size: 16px; font-family: 'Roboto Slab', serif; font-weight: 600; }
+.related_posts ol li amp-img{ width:100px; float:left; margin-right:15px }
+.related_posts ol li p{ font-size: 12px; color: #999; line-height: 1.2; margin: 12px 0 0 0; }
+.no_related_thumbnail{ padding: 15px 18px; }
+.no_related_thumbnail .related_link{ margin: 16px 18px 20px 19px; } .ampforwp_single_excerpt{ margin-bottom: 15px; }
+/* ADS */
+.amp_ad_1{ margin-top: 15px; margin-bottom: 10px; }
+.single-post .amp_ad_1{ margin-bottom: -15px; }
+.amp-ad-2{ margin-bottom: -5px;    margin-top: 20px; }
+html .single-post .ampforwp-incontent-ad-1 { margin-bottom: 10px; }
+.amp-ad-3{ margin-bottom:10px; }
+.amp-ad-4{ margin-top:2px; }
+.amp-wp-content blockquote{ background-color: #fff; border-left: 3px solid; margin: 0; padding: 15px 20px; background: #f3f3f3; }
+.amp-wp-content blockquote p{ margin-bottom:0 }
+pre{ white-space: pre-wrap; }
+
+#designthree{ background-color: #FFF; overflow: visible;
+/*    animation: closing .3s normal forwards ease-in-out,closingFix .6s normal forwards ease-in-out;
+    -webkit-transform-origin: right center;
+    transform-origin: right center;*/
+}
+/* Sidebar */
+#sidebar[aria-hidden="false"]+#designthree { max-height: 100vh; overflow: hidden; animation: opening .3s normal forwards ease-in-out; -webkit-transform: translate3d(60%, 0, 0) scale(0.8); transform: translate3d(60%, 0, 0) scale(0.8); }
+@keyframes opening{ 0% { transform: translate3d(0, 0, 0) scale(1); } 100% { transform: translate3d(60%, 0, 0) scale(0.8); } }
+@keyframes closing{ 0% { transform: translate3d(60%, 0, 0) scale(0.8); } 100% { transform: translate3d(0, 0, 0) scale(1); } }
+@keyframes closingFix{ 0% { max-height: 100vh; overflow: hidden; } 100% { max-height: none; overflow: visible; } }
+.hamburgermenu{ float:left; position:relative; z-index: 9999; }
+
+/* Category 3 */
+.amp-category-block{ margin: 30px 0px 10px 0px }
+.amp-category-block a{ color:#666}
+.amp-category-block ul{ list-style-type:none}
+.category-widget-gutter h4{ margin-bottom: 0px;}
+.category-widget-gutter ul{ margin-top: 10px; list-style-type:none; padding:0 }
+.amp-category-block-btn{ display: block; text-align: center; font-size: 13px; margin-top: 15px; border-bottom: 1px solid #f1f1f1; text-decoration: none; padding-bottom: 8px;}
+.design_2_wrapper .amp-category-block{ max-width: 840px; margin: 1.5em auto; }
+.amp-category-block ul, .category-widget-wrapper{ max-width: 1000px; margin: 0 auto; padding:0px 15px 5px 15px }
+.amp-category-post{ width: 32%; display: inline-block; word-wrap: break-word;float: left;}
+.amp-category-post amp-img{ margin-bottom:5px; }
+.amp-category-block li:nth-child(3){ margin: 0 1%; }
+.searchmenu{ margin-right: 15px; margin-top: 11px; position: absolute; top: 0; right: 0; }
+.searchmenu button{ background:transparent; border:none }
+.headerlogo{ margin: 0 auto; width: 80%; text-align: center; }
+.headerlogo amp-img{ margin-top:6px }
+.headerlogo a{ color:#F42; }
+
+/*Navigation Menu*/
+.toast { display: block; position: relative; height: 50px; padding-left: 20px; padding-right: 15px; width: 49px; background:none; border:0 }
+.toast:after, .toast:before, .toast span{ position: absolute; display: block; width: 19px; height: 2px; border-radius: 2px; background-color: #F42; -webkit-transform: translate3d(0, 0, 0) rotate(0deg); transform: translate3d(0, 0, 0) rotate(0deg); }
+.toast:after, .toast:before{ content: ''; left: 20px; -webkit-transition: all ease-in .4s; transition: all ease-in .4s; }
+.toast span{ opacity: 1; top: 24px; -webkit-transition: all ease-in-out .4s; transition: all ease-in-out .4s; }
+.toast:before{ top: 17px; }
+.toast:after{ top: 31px; }
+#sidebar[aria-hidden="false"]+#designthree .toast span{ opacity: 0; -webkit-transform: translate3d(200%, 0, 0); transform: translate3d(200%, 0, 0); }
+#sidebar[aria-hidden="false"]+#designthree .toast:before{ -webkit-transform-origin: left bottom; transform-origin: left bottom; -webkit-transform: rotate(43deg); transform: rotate(43deg); }
+#sidebar[aria-hidden="false"]+#designthree .toast:after{ -webkit-transform-origin: left top; transform-origin: left top; -webkit-transform: rotate(-43deg); transform: rotate(-43deg); }
+
+/* CSS3 icon */
+[class*=icono-]{ display: inline-block; vertical-align: middle; position: relative; font-style: normal; color: #f42; text-align: left; text-indent: -9999px; direction: ltr }
+[class*=icono-]:after, [class*=icono-]:before{ content: ''; pointer-events: none; }
+.icono-search{ -webkit-transform: translateX(-50%); -ms-transform: translateX(-50%); transform: translateX(-50%) }
+.icono-share{ height: 9px; position: relative; width: 9px; color: #dadada; border-radius: 50%; box-shadow: inset 0 0 0 32px, 22px -11px 0 0, 22px 11px 0 0; top: -15px; margin-right: 35px; }
+.icono-share:after, .icono-share:before{ position: absolute; width: 24px; height: 1px; box-shadow: inset 0 0 0 32px; left: 0; }
+.icono-share:before{ top: 0px; -webkit-transform: rotate(-25deg); -ms-transform: rotate(-25deg); transform: rotate(-25deg); }
+.icono-share:after{ top: 8px; -webkit-transform: rotate(25deg); -ms-transform: rotate(25deg); transform: rotate(25deg); }
+.icono-search{ border: 1px solid; width: 10px; height: 10px; border-radius: 50%; -webkit-transform: rotate(45deg); -ms-transform: rotate(45deg); transform: rotate(45deg); margin: 4px 4px 8px 8px; }
+.icono-search:before{ position: absolute; left: 50%; -webkit-transform: rotate(270deg); -ms-transform: rotate(270deg); transform: rotate(270deg); width: 2px; height: 9px; box-shadow: inset 0 0 0 32px; top: 0px; border-radius: 0 0 1px 1px; left: 14px; }
+.closebutton{ background: transparent; border: 0; color: rgba(255, 255, 255, 0.7); border: 1px solid rgba(255, 255, 255, 0.7); border-radius: 30px; width: 32px; height: 32px; font-size: 12px; text-align: center; position: absolute; top: 12px; right: 20px; outline:none }
+amp-lightbox{ background: rgba(0, 0, 0,0.85); }
+.searchform label{ color: #f7f7f7; display: block; font-size: 10px; letter-spacing: 0.3px; line-height: 0; opacity:0.6 }
+.searchform{ background: transparent; left: 20%; position: absolute; top: 35%; width: 60%; max-width: 100%; transition-delay: 0.5s; }
+.searchform input{ background: transparent; border: 1px solid #666; color: #f7f7f7; font-size: 14px; font-weight: 400; line-height: 1; letter-spacing: 0.3px; text-transform: capitalize; padding: 20px 0px 20px 30px; margin-top: 15px; width: 100%; }
+#searchsubmit{opacity:0}
+.featured_time{ font-size: 12px; color: #fff; opacity: 0.8; padding-left: 20px; }
+.archives_body main{ margin-top:30px }
+.archives_body .page-title{margin-left:15px}
+/* Tables */
+table { display: -webkit-box; display: -ms-flexbox; display: flex; -ms-flex-wrap: wrap; flex-wrap: wrap; overflow-x: auto; }
+table a:link { color: #666; font-weight: bold; text-decoration: none; }
+table a:visited { color: #999999; font-weight: bold; text-decoration: none; }
+table a:active, table a:hover { color: #bd5a35; text-decoration: underline; }
+table { font-family: Arial, Helvetica, sans-serif; color: #666; font-size: 12px; text-shadow: 1px 1px 0px #fff; background: #eee; margin: 0px; width: 100%; }
+table th { padding: 21px 25px 22px 25px; border-top: 1px solid #fafafa; border-bottom: 1px solid #e0e0e0; background: #ededed; background: -webkit-gradient(linear, left top, left bottom, from(#ededed), to(#ebebeb)); background: -moz-linear-gradient(top, #ededed, #ebebeb); }
+table th:first-child { text-align: left; padding-left: 20px; }
+table tr:first-child th:first-child { -moz-border-radius-topleft: 3px; -webkit-border-top-left-radius: 3px; border-top-left-radius: 3px; }
+table tr:first-child th:last-child { -moz-border-radius-topright: 3px; -webkit-border-top-right-radius: 3px; border-top-right-radius: 3px; }
+table tr { text-align: center; padding-left: 20px; }
+table td:first-child { text-align: left; padding-left: 20px; border-left: 0; }
+table td { padding: 18px; border-top: 1px solid #ffffff; border-bottom: 1px solid #e0e0e0; border-left: 1px solid #e0e0e0; background: #fafafa; background: -webkit-gradient(linear, left top, left bottom, from(#fbfbfb), to(#fafafa)); background: -moz-linear-gradient(top, #fbfbfb, #fafafa); }
+table tr.even td { background: #f6f6f6; background: -webkit-gradient(linear, left top, left bottom, from(#f8f8f8), to(#f6f6f6)); background: -moz-linear-gradient(top, #f8f8f8, #f6f6f6); }
+table tr:last-child td {border-bottom: 0;}
+table tr:last-child td:first-child { -moz-border-radius-bottomleft: 3px; -webkit-border-bottom-left-radius: 3px; border-bottom-left-radius: 3px; }
+table tr:last-child td:last-child { -moz-border-radius-bottomright: 3px; -webkit-border-bottom-right-radius: 3px; border-bottom-right-radius: 3px; }
+table tr:hover td { background: #f2f2f2; background: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#f0f0f0)); background: -moz-linear-gradient(top, #f2f2f2, #f0f0f0); }
+/* Responsive */
+@media screen and (min-width: 650px) { table {display: inline-table;}  }
+ 
+@media screen and (max-width: 768px){ .amp-wp-meta{ margin:10px 0px 15px 0px } .home-post_image{ width: 40%; } .amp-loop-list .amp-wp-post-content{ width: 58%; } .amp-loop-list .featured_time{line-height:1} .single-post main .amp-wp-content h1{  line-height:1.4;  font-size: 30px;}  }
+@media screen and (max-width: 600px){ .amp-loop-list .amp-wp-tags{display:none} }
+@media screen and (max-width: 530px){ .home-post_image{ width: 35%; } .amp-loop-list .amp-wp-post-content{ width: 63%; } .amp-wp-post-content p { font-size: 12px; } .related_posts ol li p { line-height: 1.6; margin: 7px 0 0 0;} .comments_list ul li .comment-body {width:auto} .amp-category-block li:nth-child(3) {margin:0} }
+@media screen and (max-width: 425px){ .home-post_image{ /*    width: 125px;*/ width: 31.6%; overflow: hidden; height: 100px; /* margin-right: 13px; */ margin-right: 3%; } .home-post_image amp-img{ width: 144%; left: -20%; } h2.amp-wp-title{    margin-bottom: 7px;  line-height: 1.31578947; font-size: 19px; position:relative;top:-3px } h2.amp-wp-title a{ color:#262626} .amp-loop-list{padding:25px 15px 22px 15px} .amp-loop-list .amp-wp-post-content{ width: 63%; } .amp-loop-list .amp-wp-post-content .large-screen-excerpt-design-3, .related_posts .related_link p{ display:none } .amp-loop-list .amp-wp-post-content .small-screen-excerpt-design-3 { display: block; } .related_posts .related_link a{ font-size: 18px; line-height: 1.7; } .ampforwp-tax-category{ padding-bottom:0 } .amp-wp-byline{ padding:0 } .related_posts .related_link a{ font-size: 17px; line-height: 1.5; } .single-post main .amp-wp-content h1{ line-height: 1.3; font-size: 26px;} .icono-share{display:none} .ampforwp-social-icons amp-social-share{ margin-right: 3px;} main .amp-wp-content{ font-size: 16px; line-height: 26px;} .single-post .amp_author_area .amp_author_area_wrapper{font-size:13px;} .amp-category-post{ font-size:12px; color:#666 } }
+@media screen and (max-width: 400px){ .amp-wp-title{ font-size: 19px; } }
+@media screen and (max-width: 375px){ .single-post main .amp-wp-content h1{ line-height: 1.3; font-size: 24px;} .home-post_image{ height: 79px; } .amp-carousel-slide h1{ font-size: 28px; line-height: 32px; } #pagination .next a, #pagination .prev a{ color: #666; font-size: 14px; padding: 15px 0px; margin-top: -5px; }.related-title,.comments_list h3{ margin-top:15px; } #pagination .next{ margin-bottom:15px; } .related_posts .related_link a{ font-size: 15px; line-height: 1.6; } }
+@media screen and (max-width: 340px){ .single-post main .amp-wp-content h1{ line-height: 1.3; font-size: 22px;} .amp-loop-list{ padding: 20px 15px 18px 15px; } h2.amp-wp-title{ line-height: 1.31578947; font-size: 17px; } .related_posts .related_link a{ font-size: 15px; } .the_content .amp-ad-wrapper{ text-align: center; margin-left: -13px; } }
+@media screen and (max-width: 320px){ .related_posts .related_link a{ font-size: 13px; } .ampforwp-social-icons amp-social-share{ margin-right: 1px; } }
+.entry-content amp-anim{display:table-cell;}
+
+a {  color: #F42F42 }
+body a {  color: #f42f42 }
+
+.amp-wp-content blockquote { border-color:  #0a89c0; }
+amp-user-notification { border-color:  #F42F42;}
+amp-user-notification button { background-color:  #F42F42;}
+.single-post footer { padding-bottom: 41px;}
+.amp-wp-author:before{ content: " Published by  ";}
+.ampforwp-tax-category span:last-child:after { content: ' ';}
+.ampforwp-tax-category span:after{ content: ', ';}
+.amp-wp-article-content img { max-width: 100%;}
+@font-face {
+  font-family: 'icomoon';
+  src:  url('../../../../../wp-content/plugins/accelerated-mobile-pages/templates/design-manager/design-3/fonts/icomoonfbdb.eot?b9qrme');
+  src:  url('../../../../../wp-content/plugins/accelerated-mobile-pages/templates/design-manager/design-3/fonts/icomoonfbdb.eot?b9qrme#iefix') format('embedded-opentype'),
+    url('../../../../../wp-content/plugins/accelerated-mobile-pages/templates/design-manager/design-3/fonts/icomoonfbdb.ttf?b9qrme') format('truetype'),
+    url('../../../../../wp-content/plugins/accelerated-mobile-pages/templates/design-manager/design-3/fonts/icomoonfbdb.woff?b9qrme') format('woff'),
+    url('../../../../../wp-content/plugins/accelerated-mobile-pages/templates/design-manager/design-3/fonts/icomoonfbdb.svg?b9qrme#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+[class^="icon-"], [class*=" icon-"]{ font-family: 'icomoon'; speak: none; font-style: normal; font-weight: normal; font-variant: normal; text-transform: none; line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.icon-twitter:before{ content: "\f099";background:#1da1f2 }
+.icon-facebook:before{ content: "\f09a";background:#3b5998 }
+.icon-facebook-f:before{ content: "\f09a";background:#3b5998 }
+.icon-pinterest:before{ content: "\f0d2";background:#bd081c }
+.icon-google-plus:before{ content: "\f0d5";background:#dd4b39 }
+.icon-linkedin:before{ content: "\f0e1";background:#0077b5 }
+.icon-youtube-play:before{ content: "\f16a";background:#cd201f }
+.icon-instagram:before{ content: "\f16d";background:#c13584 }
+.icon-tumblr:before{ content: "\f173";background:#35465c }
+.icon-vk:before{ content: "\f189";background:#45668e }
+.icon-whatsapp:before{ content: "\f232";background:#075e54 }
+.icon-reddit-alien:before{ content: "\f281";background:#ff4500 }
+.icon-snapchat-ghost:before{ content: "\f2ac"; background:#fffc00 }
+.social_icons{ font-size: 15px; display: inline-block; }
+.social_icons ul{ list-style-type:none; padding:0;margin:0; text-align:center }
+.social_icons li{ box-sizing: initial; display:inline-block; margin:5px; }
+.social_icons li:before{ box-sizing: initial; color:#fff; padding: 10px; display: inline-block; border-radius: 70px; width: 18px; height: 18px; line-height: 20px; text-align: center; }
+#ampsomething { display: none; }
+#header, .headerlogo a{ background:#FFFFFF  }
+.comment-button-wrapper a, #pagination .next a, #pagination .prev a{ background: #F42F42 ; }
+.toast:after, .toast:before, .toast span{ background: #333 ; }
+[class*=icono-], .headerlogo a{ color: #333 }
+#pagination .next a, #pagination .prev a , #pagination .next a, #pagination .prev a , .comment-button-wrapper a{ color:  #fff ;}
+.toggle-navigationv2 .social_icons { border-top: 0px; }
+.toggle-navigationv2 a { color:#fff; }
+.breadcrumb{line-height: 1;margin-bottom:6px;}
+.breadcrumb ul, .category-single ul{ padding:0; margin:0;}
+.breadcrumb ul li{display:inline;}
+.breadcrumb ul li a{ font-size:12px;}
+.breadcrumb ul li a::after {content: "►";display: inline-block;font-size: 8px;padding: 0 6px 0 7px;vertical-align: middle;opacity: 0.5;position:relative;top:-1px}
+.breadcrumb ul li:hover a::after{color:#c3c3c3;}
+.breadcrumb ul li:last-child a::after{display:none;}
+ 
+.amp-menu > li > a > amp-img, .sub-menu > li > a > amp-img { display: inline-block; margin-right: 4px; }
+.menu-item amp-img {width: 16px; height: 11px; display: inline-block; margin-right: 5px; }
+/******* Paste your Custom CSS in this Editor *******/.amp_pb{display: inline-block;width: 100%;}
+    .row{display: inline-flex;width: 100%;}
+	.col-2{width:50%;float:left;}
+    .amp_blurb{text-align:center}
+    .amp_blurb amp-img{margin: 0 auto;}
+    .amp_btn{text-align:center}
+    .amp_btn a{background: #f92c8b;color: #fff;padding: 9px 20px;border-radius: 3px;display: inline-block;box-shadow: 1px 1px 4px #ccc;}
+		</style>
+</head>
+ 
+<body class="body single-post 1990 post-id-1990 singular-1990 design_3_wrapper" >
+<amp-sidebar id='sidebar'
+    layout="nodisplay"
+    side="left">
+        <div class="toggle-navigationv2">
+
+                   
+           </nav>
+          <div class="social_icons">
+            <ul>
+
+                                                      <a href="#" target ="_blank"><li class="icon-twitter"></li></a>
+                            
+                                                        <a href="#" target ="_blank"><li class="icon-facebook"></li></a>
+                            
+                                                        <a href="#" target ="_blank"><li class="icon-pinterest"></li></a>
+                            
+                            
+                            
+                                                        <a href="#" target ="_blank"><li class="icon-youtube-play"></li></a>
+                            
+                            
+                            
+                            
+
+                            
+                            
+            </ul>
+          </div>
+  </div>
+</amp-sidebar>
+<div id="designthree" class="designthree main_container">
+<header class="container">
+  <div id="headerwrap">
+      <div id="header">
+              <div class="hamburgermenu">
+            <button class="toast pull-left" on='tap:sidebar.toggle'><span></span></button>
+        </div>
+                <div class="headerlogo">
+        
+                  <a href="../../../../../amp/index.html"    >
+
+            
+                <amp-img src="../../../../../wp-content/uploads/2017/10/931201711412.jpg" width="190" height="36" alt="Okkhor.org -Tech Blog ≥ Guides Software Tutorials" class="amp-logo"></amp-img>
+
+            
+          </a>
+                </div>
+                
+      </div>
+  </div>
+</header>
+   	<div class="amp-wp-content widget-wrapper">
+	   	<div class="amp_widget_below_the_header">
+	  	 </div>
+  	</div> 
+
+<main>
+	<article class="amp-wp-article">
+				
+<div class="amp-wp-content amp-wp-article-header ampforwp-meta-info">
+	<div class="amp-wp-content post-title-meta">
+
+			<ul class="amp-wp-meta amp-meta-wrapper">
+	<div class="amp-wp-meta amp-wp-byline">
+  <span class="amp-wp-author author vcard">okkhor</span>  	<span class="amp-wp-meta amp-wp-tax-category ampforwp-tax-category  ">
+      in <span class="amp-cat-31"><a href="../../../../../category/linux/amp/index.html" >Linux</a></span><span class="amp-cat-1"><a href="../../../../../category/uncategorized/amp/index.html" >Uncategorized</a></span>  	</span>
+
+
+	</div>
+
+
+			</ul>
+	</div>
+</div>
+<header class="amp-wp-content amp-wp-article-header ampforwp-title">
+	<h1 class="amp-wp-title"> How To Install Nginx, MariaDB 10, PHP 7 (LEMP Stack) in 16.10/16.04</h1>
+	</header><div class="amp-wp-content breadcrumb"> <ul id="breadcrumbs" class="breadcrumbs"><li class="item-home"><a class="bread-link bread-home" href="../../../../../amp/index.html" title="Homepage">Homepage</a></li><li class="item-cat item-cat-1"><a class="bread-cat bread-cat-1 bread-cat-Uncategorized" href="../../../../../category/uncategorized/amp/index.html" title="Uncategorized">Uncategorized</a></li></ul></div>
+			<div class="amp-wp-article-featured-image amp-wp-content featured-image-content">
+				<div class="post-featured-img">
+					<figure class="amp-wp-article-featured-image wp-caption">
+						<!-- Featured Image From URL plugin --> <amp-img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTd6p4T9geixSZtTt3ROufK-JZRq__-cNdXqv7T8SH0iGwiDgR7" alt="" width="300" height="168" sizes="(min-width: 300px) 300px, 100vw" class="amp-wp-enforced-sizes"></amp-img>						 
+					</figure>
+				</div>
+			</div> <div class="amp-wp-article-content">
+
+	<!--Post Content here-->
+	<div class="amp-wp-content the_content">
+		
+<p>The <strong>LEMP</strong> stack is an acronym whichr representsisa group of packages (Linux OS, Nginx web server, MySQL\MariaDB database and PHP server-side dynamic programming language) which are used to deploy dynamic web applications and web pages.</p>
+<p>This tutorial will guide you on how to install a LEMP stack with <strong>MariaDB 10</strong>, <strong>PHP 7</strong> and <strong>HTTP 2.0</strong> Support for <strong>Nginx</strong> on <strong>Ubuntu 16.10</strong> and <strong>Ubuntu 16.04</strong>server/desktop editions.</p>
+<h4>Requirements</h4>
+<ol>
+<li><a href="https://www.tecmint.com/installation-of-ubuntu-16-04-server-edition/" target="_blank" rel="noopener">Installation of Ubuntu 16.04 Server Edition</a>[instructions also works on <strong>Ubuntu 16.10</strong>]</li>
+</ol>
+<h3>Step 1: Install the Nginx Web Server</h3>
+<p><strong>1.</strong> Nginx is a modern and resources efficient web server used to display web pages to visitors on the internet. We’ll start by installing Nginx web server from Ubuntu official repositories by using the <a href="https://www.tecmint.com/apt-advanced-package-command-examples-in-ubuntu/" target="_blank" rel="noopener">apt command line</a>.</p>
+<pre>$ sudo apt-get install nginx
+</pre>
+<div id="attachment_20750" class="wp-caption aligncenter">
+<p><a href="../../../../../../i2.wp.com/www.tecmint.com/wp-content/uploads/2016/05/Install-Nginx-on-Ubuntu-16.04eb45.png?ssl=1"><amp-img class="size-full wp-image-20750 amp-wp-enforced-sizes" src="../../../../../../i2.wp.com/www.tecmint.com/wp-content/uploads/2016/05/Install-Nginx-on-Ubuntu-16.04f30c.png?resize=860%2C500&amp;ssl=1" sizes="(min-width: 860px) 860px, 100vw" srcset="https://i2.wp.com/www.tecmint.com/wp-content/uploads/2016/05/Install-Nginx-on-Ubuntu-16.04.png?resize=860%2C500&amp;ssl=1 860w, https://www.tecmint.com/wp-content/uploads/2016/05/Install-Nginx-on-Ubuntu-16.04-768x447.png 768w" alt="Install Nginx on Ubuntu 16.04" width="860" height="500"></amp-img></a></p>
+<p class="wp-caption-text">Install Nginx on Ubuntu 16.04</p>
+</div>
+<p><strong>2.</strong> Next, issue the <a href="https://www.tecmint.com/20-netstat-commands-for-linux-network-management/" target="_blank" rel="noopener">netstat</a> and <a href="https://www.tecmint.com/manage-services-using-systemd-and-systemctl-in-linux/" target="_blank" rel="noopener">systemctl</a> commands in order to confirm if <strong>Nginx</strong> is started and binds on port <strong>80</strong>.</p>
+<pre>$ netstat -tlpn
+</pre>
+<div id="attachment_20751" class="wp-caption aligncenter">
+<p><a href="../../../../../../i1.wp.com/www.tecmint.com/wp-content/uploads/2016/05/Check-Nginx-Network-Port-Connectioneb45.png?ssl=1"><amp-img class="size-full wp-image-20751 amp-wp-enforced-sizes" src="../../../../../../i1.wp.com/www.tecmint.com/wp-content/uploads/2016/05/Check-Nginx-Network-Port-Connection462f.png?resize=848%2C274&amp;ssl=1" sizes="(min-width: 848px) 848px, 100vw" srcset="https://i1.wp.com/www.tecmint.com/wp-content/uploads/2016/05/Check-Nginx-Network-Port-Connection.png?resize=848%2C274&amp;ssl=1 848w, https://www.tecmint.com/wp-content/uploads/2016/05/Check-Nginx-Network-Port-Connection-768x248.png 768w" alt="Check Nginx Network Port Connection" width="848" height="274"></amp-img></a></p>
+<p class="wp-caption-text">Check Nginx Network Port Connection</p>
+</div>
+<pre>$ sudo systemctl status nginx.service
+</pre>
+<div id="attachment_20752" class="wp-caption aligncenter">
+<p><a href="../../../../../../i1.wp.com/www.tecmint.com/wp-content/uploads/2016/05/Check-Nginx-Service-Statuseb45.png?ssl=1"><amp-img class="size-full wp-image-20752 amp-wp-enforced-sizes" src="../../../../../../i1.wp.com/www.tecmint.com/wp-content/uploads/2016/05/Check-Nginx-Service-Statuse2e3.png?resize=855%2C286&amp;ssl=1" sizes="(min-width: 855px) 855px, 100vw" srcset="https://i1.wp.com/www.tecmint.com/wp-content/uploads/2016/05/Check-Nginx-Service-Status.png?resize=855%2C286&amp;ssl=1 855w, https://www.tecmint.com/wp-content/uploads/2016/05/Check-Nginx-Service-Status-768x257.png 768w" alt="Check Nginx Service Status" width="855" height="286"></amp-img></a></p>
+<p class="wp-caption-text">Check Nginx Service Status</p>
+<p>Once you have the confirmation that the server is started you can open a browser and navigate to your server IP address or DNS record using HTTP protocol in order to visit Nginx default web page.</p>
+<pre>http://IP-Address
+</pre>
+<div id="attachment_20753" class="wp-caption aligncenter">
+<p><a href="../../../../../../i0.wp.com/www.tecmint.com/wp-content/uploads/2016/05/Verify-Nginx-Webpageeb45.png?ssl=1"><amp-img class="size-full wp-image-20753 amp-wp-enforced-sizes" src="../../../../../../i0.wp.com/www.tecmint.com/wp-content/uploads/2016/05/Verify-Nginx-Webpage8fe1.png?resize=588%2C288&amp;ssl=1" alt="Verify Nginx Webpage" width="588" height="288" sizes="(min-width: 588px) 588px, 100vw"></amp-img></a></p>
+<p class="wp-caption-text">Verify Nginx Webpage</p>
+</div>
+<h3>Step 2: Enable Nginx HTTP/2.0 Protocol</h3>
+<p><strong>3.</strong> The <strong>HTTP/2.0</strong> protocol which is build by default in the latest release of Nginx binaries on <strong>Ubuntu 16.04</strong> works only in conjunction with SSL and promises a huge speed improvement in loading web SSL web pages.</p>
+<p>To enable the protocol in Nginx on <strong>Ubuntu 16.04</strong>, first navigate to Nginx available sites configuration files and backup the default configuration file by issuing the below command.</p>
+<pre>$ cd /etc/nginx/sites-available/
+$ sudo mv default default.backup
+</pre>
+<div id="attachment_20754" class="wp-caption aligncenter">
+<p><a href="../../../../../../i0.wp.com/www.tecmint.com/wp-content/uploads/2016/05/Backup-Nginx-Sites-Configuration-Fileeb45.png?ssl=1"><amp-img class="size-full wp-image-20754 amp-wp-enforced-sizes" src="../../../../../../i0.wp.com/www.tecmint.com/wp-content/uploads/2016/05/Backup-Nginx-Sites-Configuration-File246d.png?resize=628%2C112&amp;ssl=1" alt="Backup Nginx Sites Configuration File" width="628" height="112" sizes="(min-width: 628px) 628px, 100vw"></amp-img></a></p>
+<p class="wp-caption-text">Backup Nginx Sites Configuration File</p>
+</div>
+<p><strong>4.</strong> Then, using a text editor create a new default page with the below instructions:</p>
+<pre>server {
+        listen 443 ssl http2 default_server;
+        listen [::]:443 ssl http2 default_server;
+
+        root /var/www/html;
+
+        index index.html index.htm index.php;
+
+        server_name 192.168.1.13;
+
+        location / {
+                try_files $uri $uri/ =404;
+        }
+
+        ssl_certificate /etc/nginx/ssl/nginx.crt;
+        ssl_certificate_key /etc/nginx/ssl/nginx.key;
+
+        ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+        ssl_prefer_server_ciphers on;
+        ssl_ciphers EECDH+CHACHA20:EECDH+AES128:RSA+AES128:EECDH+AES256:RSA+AES256:EECDH+3DES:RSA+3DES:!MD5;
+        ssl_dhparam  /etc/nginx/ssl/dhparam.pem;
+        ssl_session_cache shared:SSL:20m;
+        ssl_session_timeout 180m;
+        resolver 8.8.8.8 8.8.4.4;
+        add_header Strict-Transport-Security "max-age=31536000;
+        #includeSubDomains" always;
+
+
+        location ~ \.php$ {
+                include snippets/fastcgi-php.conf;
+                fastcgi_pass unix:/run/php/php7.0-fpm.sock;
+        }
+
+        location ~ /\.ht {
+                deny all;
+        }
+
+}
+
+server {
+       listen         80;
+       listen    [::]:80;
+       server_name    192.168.1.13;
+       return         301 https://$server_name$request_uri;
+}
+</pre>
+<div id="attachment_20755" class="wp-caption aligncenter">
+<p><a href="../../../../../../i1.wp.com/www.tecmint.com/wp-content/uploads/2016/05/Enable-Nginx-HTTP-2-Protocoleb45.png?ssl=1"><amp-img class="size-full wp-image-20755 amp-wp-enforced-sizes" src="../../../../../../i1.wp.com/www.tecmint.com/wp-content/uploads/2016/05/Enable-Nginx-HTTP-2-Protocold459.png?resize=901%2C867&amp;ssl=1" sizes="(min-width: 901px) 901px, 100vw" srcset="https://i1.wp.com/www.tecmint.com/wp-content/uploads/2016/05/Enable-Nginx-HTTP-2-Protocol.png?resize=901%2C867&amp;ssl=1 901w, https://www.tecmint.com/wp-content/uploads/2016/05/Enable-Nginx-HTTP-2-Protocol-768x739.png 768w" alt="Enable Nginx HTTP 2 Protocol" width="901" height="867"></amp-img></a></p>
+<p class="wp-caption-text">Enable Nginx HTTP 2 Protocol</p>
+</div>
+<p>The above configuration snippet enables the use of <strong>HTTP/2.0</strong> by adding the <code>http2</code> parameter to all SSL listen directives.</p>
+<p>Also, the last part of the excerpt enclosed in server directive is used to redirect all non-SSL traffic to SSL/TLS default host. Also, replace the <code>server_name</code> directive to match your own IP address or DNS record (FQDN preferably).</p>
+<p><strong>5.</strong> Once you finished editing Nginx default configuration file with the above settings, generate and list the SSL certificate file and key by executing the below commands.</p>
+<p>Fill the certificate with your own custom settings and pay attention to <strong>Common Name</strong> setting to match your DNS FQDN record or your server IP address that will be used to access the web page.</p>
+<pre>$ sudo mkdir /etc/nginx/ssl
+$ sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/nginx.key -out /etc/nginx/ssl/nginx.crt
+$ ls /etc/nginx/ssl/
+</pre>
+<div id="attachment_20756" class="wp-caption aligncenter">
+<p><a href="../../../../../../i2.wp.com/www.tecmint.com/wp-content/uploads/2016/05/Generate-SSL-Certificate-and-Keyeb45.png?ssl=1"><amp-img class="size-full wp-image-20756 amp-wp-enforced-sizes" src="../../../../../../i2.wp.com/www.tecmint.com/wp-content/uploads/2016/05/Generate-SSL-Certificate-and-Key7ece.png?resize=927%2C589&amp;ssl=1" sizes="(min-width: 927px) 927px, 100vw" srcset="https://i2.wp.com/www.tecmint.com/wp-content/uploads/2016/05/Generate-SSL-Certificate-and-Key.png?resize=927%2C589&amp;ssl=1 927w, https://www.tecmint.com/wp-content/uploads/2016/05/Generate-SSL-Certificate-and-Key-768x488.png 768w" alt="Generate SSL Certificate and Key for Nginx" width="927" height="589"></amp-img></a></p>
+<p class="wp-caption-text">Generate SSL Certificate and Key for Nginx</p>
+</div>
+<p><strong>6.</strong> Also, create a strong <strong>DH cypher</strong>, which was changed on the above configuration file on <code>ssl_dhparam</code>instruction line, by issuing the below command:</p>
+<pre>$ sudo openssl dhparam -out /etc/nginx/ssl/dhparam.pem 2048
+</pre>
+<div id="attachment_20757" class="wp-caption aligncenter">
+<p><a href="../../../../../../i2.wp.com/www.tecmint.com/wp-content/uploads/2016/05/Create-Diffie-Hellman-Keyeb45.png?ssl=1"><amp-img class="size-full wp-image-20757 amp-wp-enforced-sizes" src="../../../../../../i2.wp.com/www.tecmint.com/wp-content/uploads/2016/05/Create-Diffie-Hellman-Keyc0eb.png?resize=920%2C661&amp;ssl=1" sizes="(min-width: 920px) 920px, 100vw" srcset="https://i2.wp.com/www.tecmint.com/wp-content/uploads/2016/05/Create-Diffie-Hellman-Key.png?resize=920%2C661&amp;ssl=1 920w, https://www.tecmint.com/wp-content/uploads/2016/05/Create-Diffie-Hellman-Key-768x552.png 768w" alt="Create Diffie-Hellman Key" width="920" height="661"></amp-img></a></p>
+<p class="wp-caption-text">Create Diffie-Hellman Key</p>
+</div>
+<p><strong>7.</strong> Once the <strong>Diffie-Hellman</strong> key has been created, verify if Nginx configuration file is correctly written and can be applied by Nginx web server and restart the daemon to reflect changes by running the below commands.</p>
+<pre>$ sudo nginx -t
+$ sudo systemctl restart nginx.service
+</pre>
+<div id="attachment_20758" class="wp-caption aligncenter">
+<p><a href="../../../../../../i2.wp.com/www.tecmint.com/wp-content/uploads/2016/05/Check-Nginx-Configurationeb45.png?ssl=1"><amp-img class="size-full wp-image-20758 amp-wp-enforced-sizes" src="../../../../../../i2.wp.com/www.tecmint.com/wp-content/uploads/2016/05/Check-Nginx-Configuration627b.png?resize=682%2C172&amp;ssl=1" alt="Check Nginx Configuration" width="682" height="172" sizes="(min-width: 682px) 682px, 100vw"></amp-img></a></p>
+<p class="wp-caption-text">Check Nginx Configuration</p>
+</div>
+<p><strong>8.</strong> In order to test if Nginx uses <strong>HTTP/2.0</strong> protocol issue the below command. The presence of <code>h2</code> advertised protocol confirms that Nginx has been successfully configured to use HTTP/2.0 protocol. All modern up-to-date browsers should support this protocol by default.</p>
+<pre>$ openssl s_client -connect localhost:443 -nextprotoneg ''
+</pre>
+<div id="attachment_20759" class="wp-caption aligncenter">
+<p><a href="../../../../../../i0.wp.com/www.tecmint.com/wp-content/uploads/2016/05/Test-Nginx-HTTP-2-Protocoleb45.png?ssl=1"><amp-img class="size-full wp-image-20759 amp-wp-enforced-sizes" src="../../../../../../i0.wp.com/www.tecmint.com/wp-content/uploads/2016/05/Test-Nginx-HTTP-2-Protocol0742.png?resize=794%2C612&amp;ssl=1" sizes="(min-width: 794px) 794px, 100vw" srcset="https://i0.wp.com/www.tecmint.com/wp-content/uploads/2016/05/Test-Nginx-HTTP-2-Protocol.png?resize=794%2C612&amp;ssl=1 794w, https://www.tecmint.com/wp-content/uploads/2016/05/Test-Nginx-HTTP-2-Protocol-768x592.png 768w" alt="Test Nginx HTTP 2.0 Protocol" width="794" height="612"></amp-img></a></p>
+<p class="wp-caption-text">Test Nginx HTTP 2.0 Protocol</p>
+</div>
+<h3>Step 3: Install PHP 7 Interpreter</h3>
+<p>Nginx can be used with PHP dynamic processing language interpreter to generate dynamic web content with the help of FastCGI process manager obtained by installing the <strong>php-fpm</strong> binary package from Ubuntu official repositories.</p>
+<p><strong>9.</strong> In order to grab <strong>PHP7.0</strong> and the additional packages that will allow PHP to communicate with Nginx web server issue the below command on your server console:</p>
+<pre>$ sudo apt install php7.0 php7.0-fpm 
+</pre>
+<div id="attachment_20760" class="wp-caption aligncenter">
+<p><a href="../../../../../../i2.wp.com/www.tecmint.com/wp-content/uploads/2016/05/Install-PHP-7-PHP-FPM-for-Ngineb45.png?ssl=1"><amp-img class="size-full wp-image-20760 amp-wp-enforced-sizes" src="../../../../../../i2.wp.com/www.tecmint.com/wp-content/uploads/2016/05/Install-PHP-7-PHP-FPM-for-Ngindc4d.png?resize=844%2C389&amp;ssl=1" sizes="(min-width: 844px) 844px, 100vw" srcset="https://i2.wp.com/www.tecmint.com/wp-content/uploads/2016/05/Install-PHP-7-PHP-FPM-for-Ngin.png?resize=844%2C389&amp;ssl=1 844w, https://www.tecmint.com/wp-content/uploads/2016/05/Install-PHP-7-PHP-FPM-for-Ngin-768x354.png 768w" alt="Install PHP 7 and PHP-FPM for Ngin" width="844" height="389"></amp-img></a></p>
+<p class="wp-caption-text">Install PHP 7 and PHP-FPM for Ngin</p>
+</div>
+<p><strong>10.</strong> Once the <strong>PHP7.0</strong> interpreter has been successfully installed on your machine, start and check <strong>php7.0-fpm</strong>daemon by issuing the below command:</p>
+<pre>$ sudo systemctl start php7.0-fpm
+$ sudo systemctl status php7.0-fpm
+</pre>
+<div id="attachment_20761" class="wp-caption aligncenter">
+<p><a href="../../../../../../i1.wp.com/www.tecmint.com/wp-content/uploads/2016/05/Start-Verify-php-fpm-Serviceeb45.png?ssl=1"><amp-img class="size-full wp-image-20761 amp-wp-enforced-sizes" src="../../../../../../i1.wp.com/www.tecmint.com/wp-content/uploads/2016/05/Start-Verify-php-fpm-Servicefb4b.png?resize=812%2C391&amp;ssl=1" sizes="(min-width: 812px) 812px, 100vw" srcset="https://i1.wp.com/www.tecmint.com/wp-content/uploads/2016/05/Start-Verify-php-fpm-Service.png?resize=812%2C391&amp;ssl=1 812w, https://www.tecmint.com/wp-content/uploads/2016/05/Start-Verify-php-fpm-Service-768x370.png 768w" alt="Start and Verify php-fpm Service" width="812" height="391"></amp-img></a></p>
+<p class="wp-caption-text">Start and Verify php-fpm Service</p>
+</div>
+<p><strong>11.</strong> The current configuration file of Nginx is already configured to use <strong>PHP FastCGI</strong> process manager in order to server dynamic content.</p>
+<p>The server block that enables Nginx to use PHP interpreter is presented on the below excerpt, so no further modifications of default Nginx configuration file are required.</p>
+<pre>location ~ \.php$ {
+                include snippets/fastcgi-php.conf;
+                fastcgi_pass unix:/run/php/php7.0-fpm.sock;
+        }
+</pre>
+<p>Below is a screenshot of what instructions you need to uncomment and modify is case of an original Nginx default configuration file.</p>
+<div id="attachment_20762" class="wp-caption aligncenter">
+<p><a href="../../../../../../i1.wp.com/www.tecmint.com/wp-content/uploads/2016/05/Enable-PHP-FastCGI-for-Nginxeb45.png?ssl=1"><amp-img class="size-full wp-image-20762 amp-wp-enforced-sizes" src="../../../../../../i1.wp.com/www.tecmint.com/wp-content/uploads/2016/05/Enable-PHP-FastCGI-for-Nginx5cf3.png?resize=837%2C912&amp;ssl=1" sizes="(min-width: 837px) 837px, 100vw" srcset="https://i1.wp.com/www.tecmint.com/wp-content/uploads/2016/05/Enable-PHP-FastCGI-for-Nginx.png?resize=837%2C912&amp;ssl=1 837w, https://www.tecmint.com/wp-content/uploads/2016/05/Enable-PHP-FastCGI-for-Nginx-768x837.png 768w" alt="Enable PHP FastCGI for Nginx" width="837" height="912"></amp-img></a></p>
+<p class="wp-caption-text">Enable PHP FastCGI for Nginx</p>
+</div>
+<p><strong>12.</strong> To test Nginx web server relation with PHP FastCGI process manager create a PHP <code>info.php</code> test configuration file by issuing the below command and verify the settings by visiting this configuration file using the below address: <code>http://IP_or domain/info.php</code>.</p>
+<pre>$ sudo su -c 'echo "&lt;?php phpinfo(); ?&gt;" |tee /var/www/html/info.php'
+</pre>
+<div id="attachment_20763" class="wp-caption aligncenter">
+<p><a href="../../../../../../i2.wp.com/www.tecmint.com/wp-content/uploads/2016/05/Create-PHP-Info-Fileeb45.png?ssl=1"><amp-img class="size-full wp-image-20763 amp-wp-enforced-sizes" src="../../../../../../i2.wp.com/www.tecmint.com/wp-content/uploads/2016/05/Create-PHP-Info-Filecd23.png?resize=725%2C133&amp;ssl=1" alt="Create PHP Info File" width="725" height="133" sizes="(min-width: 725px) 725px, 100vw"></amp-img></a></p>
+<p class="wp-caption-text">Create PHP Info File</p>
+</div>
+<div id="attachment_20764" class="wp-caption aligncenter">
+<p><a href="../../../../../../i2.wp.com/www.tecmint.com/wp-content/uploads/2016/05/Verify-PHP-FastCGI-Infoeb45.png?ssl=1"><amp-img class="size-full wp-image-20764 amp-wp-enforced-sizes" src="../../../../../../i2.wp.com/www.tecmint.com/wp-content/uploads/2016/05/Verify-PHP-FastCGI-Info346f.png?resize=960%2C700&amp;ssl=1" sizes="(min-width: 960px) 960px, 100vw" srcset="https://i2.wp.com/www.tecmint.com/wp-content/uploads/2016/05/Verify-PHP-FastCGI-Info.png?resize=960%2C700&amp;ssl=1 1012w, https://www.tecmint.com/wp-content/uploads/2016/05/Verify-PHP-FastCGI-Info-768x560.png 768w" alt="Verify PHP FastCGI Info" width="960" height="700"></amp-img></a></p>
+<p class="wp-caption-text">Verify PHP FastCGI Info</p>
+</div>
+<p>Also check if <strong>HTTP/2.0</strong> protocol is advertised by the server by locating the line <code>$_SERVER[‘SERVER_PROTOCOL’]</code> on PHP Variables block as illustrated on the below screenshot.</p>
+<div id="attachment_20765" class="wp-caption aligncenter">
+<p><a href="../../../../../../i0.wp.com/www.tecmint.com/wp-content/uploads/2016/05/Check-HTTP-2.0-Protocol-Infoeb45.png?ssl=1"><amp-img class="size-full wp-image-20765 amp-wp-enforced-sizes" src="../../../../../../i0.wp.com/www.tecmint.com/wp-content/uploads/2016/05/Check-HTTP-2.0-Protocol-Infod2ee.png?resize=960%2C672&amp;ssl=1" sizes="(min-width: 960px) 960px, 100vw" srcset="https://i0.wp.com/www.tecmint.com/wp-content/uploads/2016/05/Check-HTTP-2.0-Protocol-Info.png?resize=960%2C672&amp;ssl=1 1045w, https://www.tecmint.com/wp-content/uploads/2016/05/Check-HTTP-2.0-Protocol-Info-768x538.png 768w" alt="Check HTTP 2.0 Protocol Info" width="960" height="672"></amp-img></a></p>
+<p class="wp-caption-text">Check HTTP 2.0 Protocol Info</p>
+</div>
+<p><strong>13.</strong> In order to install extra <strong>PHP7.0</strong> modules use the <code>apt search php7.0</code> command to find a PHP module and install it.</p>
+<p>Also, try to install the following PHP modules which can come in handy in case you are planning to <a href="https://www.tecmint.com/install-wordpress-using-lamp-or-lemp-on-rhel-centos-fedora/" target="_blank" rel="noopener">install WordPress</a> or other CMS.</p>
+<pre>$ sudo apt install php7.0-mcrypt php7.0-mbstring
+</pre>
+<div id="attachment_20766" class="wp-caption aligncenter">
+<p><a href="../../../../../../i2.wp.com/www.tecmint.com/wp-content/uploads/2016/05/Install-PHP-7-Moduleseb45.png?ssl=1"><amp-img class="size-full wp-image-20766 amp-wp-enforced-sizes" src="../../../../../../i2.wp.com/www.tecmint.com/wp-content/uploads/2016/05/Install-PHP-7-Modulese9d4.png?resize=705%2C284&amp;ssl=1" alt="Install PHP 7 Modules" width="705" height="284" sizes="(min-width: 705px) 705px, 100vw"></amp-img></a></p>
+<p class="wp-caption-text">Install PHP 7 Modules</p>
+</div>
+<p><strong>14.</strong> To register the PHP extra modules just restart <strong>PHP-FPM</strong> daemon by issuing the below command.</p>
+<pre>$ sudo systemctl restart php7.0-fpm.service
+</pre>
+<h3>Step 4: Install MariaDB Database</h3>
+<p><strong>15.</strong> Finally, in order to complete our <strong>LEMP</strong> stack we need the MariaDB database component to store and manage website data.</p>
+<p>Install <strong>MariaDB</strong> database management system by running the below command and restart <strong>PHP-FPM</strong>service in order to use MySQL module to access the database.</p>
+<pre>$ sudo apt install mariadb-server mariadb-client php7.0-mysql
+$ sudo systemctl restart php7.0-fpm.service
+</pre>
+<div id="attachment_20767" class="wp-caption aligncenter">
+<p><a href="../../../../../../i0.wp.com/www.tecmint.com/wp-content/uploads/2016/05/Install-MariaDB-for-Nginxeb45.png?ssl=1"><amp-img class="size-full wp-image-20767 amp-wp-enforced-sizes" src="../../../../../../i0.wp.com/www.tecmint.com/wp-content/uploads/2016/05/Install-MariaDB-for-Nginxe699.png?resize=856%2C442&amp;ssl=1" sizes="(min-width: 856px) 856px, 100vw" srcset="https://i0.wp.com/www.tecmint.com/wp-content/uploads/2016/05/Install-MariaDB-for-Nginx.png?resize=856%2C442&amp;ssl=1 856w, https://www.tecmint.com/wp-content/uploads/2016/05/Install-MariaDB-for-Nginx-768x397.png 768w" alt="Install MariaDB for Nginx" width="856" height="442"></amp-img></a></p>
+<p class="wp-caption-text">Install MariaDB for Nginx</p>
+</div>
+<p><strong>16.</strong> To secure the MariaDB installation, run the security script provided by the binary package from Ubuntu repositories which will ask you set a root password, remove anonymous users, disable root login remotely and remove test database.</p>
+<p>Run the script by issuing the below command and answer all questions with <code>yes</code>. Use the below screenshot as a guide.</p>
+<pre>$ sudo mysql_secure_installation
+</pre>
+<div id="attachment_20768" class="wp-caption aligncenter">
+<p><a href="../../../../../../i1.wp.com/www.tecmint.com/wp-content/uploads/2016/05/Secure-MariaDB-Installation-for-Nginxeb45.png?ssl=1"><amp-img class="size-full wp-image-20768 amp-wp-enforced-sizes" src="../../../../../../i1.wp.com/www.tecmint.com/wp-content/uploads/2016/05/Secure-MariaDB-Installation-for-Nginx5aae.png?resize=717%2C997&amp;ssl=1" alt="Secure MariaDB Installation for Nginx" width="717" height="997" sizes="(min-width: 717px) 717px, 100vw"></amp-img></a></p>
+<p class="wp-caption-text">Secure MariaDB Installation for Nginx</p>
+</div>
+<p><strong>17.</strong> To configure MariaDB so that ordinary users can access the database without system <strong>sudo</strong> privileges, go to MySQL command line interface with root privileges and run the below commands on MySQL interpreter:</p>
+<pre>$ sudo mysql 
+MariaDB&gt; use mysql;
+MariaDB&gt; update user set plugin=’‘ where User=’root’;
+MariaDB&gt; flush privileges;
+MariaDB&gt; exit
+</pre>
+<div id="attachment_20769" class="wp-caption aligncenter">
+<p><a href="../../../../../../i1.wp.com/www.tecmint.com/wp-content/uploads/2016/05/MariaDB-User-Permissionseb45.png?ssl=1"><amp-img class="size-full wp-image-20769 amp-wp-enforced-sizes" src="../../../../../../i1.wp.com/www.tecmint.com/wp-content/uploads/2016/05/MariaDB-User-Permissionsb508.png?resize=724%2C465&amp;ssl=1" alt="MariaDB User Permissions" width="724" height="465" sizes="(min-width: 724px) 724px, 100vw"></amp-img></a></p>
+<p class="wp-caption-text">MariaDB User Permissions</p>
+</div>
+<p>Finally, login to MariaDB database and run an arbitrary command without root privileges by executing the below command:</p>
+<pre>$ mysql -u root -p -e 'show databases'
+</pre>
+<div id="attachment_20770" class="wp-caption aligncenter">
+<p><a href="../../../../../../i2.wp.com/www.tecmint.com/wp-content/uploads/2016/05/Check-MariaDB-Databaseseb45.png?ssl=1"><amp-img class="size-full wp-image-20770 amp-wp-enforced-sizes" src="../../../../../../i2.wp.com/www.tecmint.com/wp-content/uploads/2016/05/Check-MariaDB-Databasesc073.png?resize=570%2C203&amp;ssl=1" alt="Check MariaDB Databases" width="570" height="203" sizes="(min-width: 570px) 570px, 100vw"></amp-img></a></p>
+<p class="wp-caption-text">Check MariaDB Databases</p>
+</div>
+<p>That’ all! Now you have a <strong>LEMP</strong> stack configured on <strong>Ubuntu 16.10</strong> and <strong>Ubuntu 16.04</strong> server that allows you to deploy complex dynamic web applications that can interact with databases.</p>
+</div>
+
+	</div>
+	<!--Post Content Ends here-->
+
+	<!--Post Next-Previous Links-->
+				<div class="amp-wp-content post-pagination-meta">
+				<div id="pagination">
+                				</div>
+			</div>
+			<!--Post Next-Previous Links End here-->
+
+</div><div class="amp-wp-content amp-wp-article-tags amp-wp-article-category ampforwp-meta-taxonomy ">
+				<div class="amp-wp-meta amp-wp-content ampforwp-tax-tag">
+				<span class="amp-tag-33"><a href="../../../../../tag/linux/amp/index.html" >linux</a></span><span class="amp-tag-56"><a href="../../../../../tag/mysqlokkhor/amp/index.html" >mysqlokkhor</a></span><span class="amp-tag-46"><a href="../../../../../tag/nginx/amp/index.html" >nginx</a></span><span class="amp-tag-47"><a href="../../../../../tag/php/amp/index.html" >php</a></span>		</div>
+</div> 
+	<div class="amp-wp-content amp_author_area ampforwp-meta-taxonomy">
+	    <div class="amp_author_area_wrapper">
+	        	                    <amp-img src="https://secure.gravatar.com/avatar/4e3fa9fd49fd9a20eb8a47b5110fdee5?s=70&amp;d=monsterid&amp;r=g" width="70" height="70" layout="fixed"></amp-img>
+	                    <strong> okkhor </strong>:	    </div>
+	</div> 						<div class="amp-wp-content relatedpost">
+						    <div class="related_posts">
+										<ol class="clearfix">
+												<span class="related-title">Related Post</span>
+																										<li class="has_related_thumbnail">
+                                                            <a href="../../../../10/30/most-frequently-used-unix-linux-commands-with-examples/amp/index.html" rel="bookmark" title="Most Frequently Used UNIX / Linux Commands (With Examples)">
+									            
+																								            	<amp-img src="../../../../../../i0.wp.com/okkhor.org/wp-content/uploads/2017/10/11674-IASHL465b.png?resize=150%2C150&amp;ssl=1" width="150" height="150" layout="responsive"></amp-img>
+															                                                              </a>
+								                <div class="related_link">
+								                    <a href="../../../../10/30/most-frequently-used-unix-linux-commands-with-examples/amp/index.html">Most Frequently Used UNIX / Linux Commands (With Examples)</a>
+								                    								                    <p>This article provides practical examples for most frequently used commands in Linux / UNIX. This&hellip;</p>
+								                </div>
+								            </li>
+																												<li class="has_related_thumbnail">
+                                                            <a href="../../../../10/29/how-to-check-if-port-is-in-use-on-linux-or-unix/amp/index.html" rel="bookmark" title="How to check if port is in use on Linux or Unix">
+									            
+																								            	<amp-img src="../../../../../../i2.wp.com/okkhor.org/wp-content/uploads/2017/10/images465b.png?resize=150%2C150&amp;ssl=1" width="150" height="150" layout="responsive"></amp-img>
+															                                                              </a>
+								                <div class="related_link">
+								                    <a href="../../../../10/29/how-to-check-if-port-is-in-use-on-linux-or-unix/amp/index.html">How to check if port is in use on Linux or Unix</a>
+								                    								                    <p>How do I determine if a port is in use under Linux or Unix-like system?&hellip;</p>
+								                </div>
+								            </li>
+																												<li class="has_related_thumbnail">
+                                                            <a href="../../../../10/27/install-python-and-pip-as-local-user-on-shared-linux/amp/index.html" rel="bookmark" title="Install python and pip as local user on shared Linux">
+									            
+																								            	<amp-img src="../../../../../../i1.wp.com/okkhor.org/wp-content/uploads/2017/10/TNW-Professional-Python-Linux-Administration-Bundle465b.jpg?resize=150%2C150&amp;ssl=1" width="150" height="150" layout="responsive"></amp-img>
+															                                                              </a>
+								                <div class="related_link">
+								                    <a href="../../../../10/27/install-python-and-pip-as-local-user-on-shared-linux/amp/index.html">Install python and pip as local user on shared Linux</a>
+								                    								                    <p>A few days ago, I was struggling to install python on a Linux machine, in&hellip;</p>
+								                </div>
+								            </li>
+																							</ol>
+						    </div>
+						</div> 			</article>
+</main>
+   	<div class="amp-wp-content widget-wrapper">
+		<div class="amp_widget_above_the_footer">
+		 </div>
+	</div>
+
+  <footer class="footer_wrapper container">
+      <div id="footer">
+        
+        
+                  <div class="social_icons">
+            <ul>
+
+                          <a href="#" target ="_blank"><li class="icon-twitter"></li></a>
+              
+                            <a href="#" target ="_blank"><li class="icon-facebook"></li></a>
+              
+                            <a href="#" target ="_blank"><li class="icon-pinterest"></li></a>
+              
+              
+              
+                            <a href="#" target ="_blank"><li class="icon-youtube-play"></li></a>
+              
+              
+              
+              
+              
+              
+            </ul>
+          </div>
+                      <p class="rightslink back-to-top">
+             <a href="#">
+                  Top 
+                </a> </p>           <p class="rightslink">
+            All Rights Reserved |  <a class="view-non-amp" href="../index.html" rel="nofollow">View Non-AMP Version </a>           </p>
+                    <p class="poweredby">
+              <a href="https://ampforwp.com/" rel="nofollow">Powered by AMPforWP</a>
+          <p>
+                  </div>
+  </footer>
+</div><!--Design3 Ends-->
+
+ 		<!--Plugin Version :0.9.67.0 -->
+				<div class="sticky_social">
+							  		          <amp-social-share type="twitter"
+	                            width="50"
+	                            height="28"
+	                            data-param-url=""
+                        		data-param-text="TITLE https://wp.me/p9jW1T-w6 via "
+	          ></amp-social-share>
+			  				  				    	<amp-social-share type="gplus"      width="50" height="28"></amp-social-share>
+			  				  				    	<amp-social-share type="email"      width="50" height="28"></amp-social-share>
+			  				  				    	<amp-social-share type="pinterest"  width="50" height="28"></amp-social-share>
+			  				  				    	<amp-social-share type="linkedin" width="50" height="28"></amp-social-share>
+			  				  								<a href="whatsapp://send?text=https://okkhor.org/2017/11/02/how-to-install-nginx-mariadb-10-php-7-lemp-stack-in-16-1016-04/">
+							<div class="custom-amp-socialsharing-icon">
+							    <amp-img src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTYuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjUxMnB4IiBoZWlnaHQ9IjUxMnB4IiB2aWV3Qm94PSIwIDAgOTAgOTAiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDkwIDkwOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxnPgoJPHBhdGggaWQ9IldoYXRzQXBwIiBkPSJNOTAsNDMuODQxYzAsMjQuMjEzLTE5Ljc3OSw0My44NDEtNDQuMTgyLDQzLjg0MWMtNy43NDcsMC0xNS4wMjUtMS45OC0yMS4zNTctNS40NTVMMCw5MGw3Ljk3NS0yMy41MjIgICBjLTQuMDIzLTYuNjA2LTYuMzQtMTQuMzU0LTYuMzQtMjIuNjM3QzEuNjM1LDE5LjYyOCwyMS40MTYsMCw0NS44MTgsMEM3MC4yMjMsMCw5MCwxOS42MjgsOTAsNDMuODQxeiBNNDUuODE4LDYuOTgyICAgYy0yMC40ODQsMC0zNy4xNDYsMTYuNTM1LTM3LjE0NiwzNi44NTljMCw4LjA2NSwyLjYyOSwxNS41MzQsNy4wNzYsMjEuNjFMMTEuMTA3LDc5LjE0bDE0LjI3NS00LjUzNyAgIGM1Ljg2NSwzLjg1MSwxMi44OTEsNi4wOTcsMjAuNDM3LDYuMDk3YzIwLjQ4MSwwLDM3LjE0Ni0xNi41MzMsMzcuMTQ2LTM2Ljg1N1M2Ni4zMDEsNi45ODIsNDUuODE4LDYuOTgyeiBNNjguMTI5LDUzLjkzOCAgIGMtMC4yNzMtMC40NDctMC45OTQtMC43MTctMi4wNzYtMS4yNTRjLTEuMDg0LTAuNTM3LTYuNDEtMy4xMzgtNy40LTMuNDk1Yy0wLjk5My0wLjM1OC0xLjcxNy0wLjUzOC0yLjQzOCwwLjUzNyAgIGMtMC43MjEsMS4wNzYtMi43OTcsMy40OTUtMy40Myw0LjIxMmMtMC42MzIsMC43MTktMS4yNjMsMC44MDktMi4zNDcsMC4yNzFjLTEuMDgyLTAuNTM3LTQuNTcxLTEuNjczLTguNzA4LTUuMzMzICAgYy0zLjIxOS0yLjg0OC01LjM5My02LjM2NC02LjAyNS03LjQ0MWMtMC42MzEtMS4wNzUtMC4wNjYtMS42NTYsMC40NzUtMi4xOTFjMC40ODgtMC40ODIsMS4wODQtMS4yNTUsMS42MjUtMS44ODIgICBjMC41NDMtMC42MjgsMC43MjMtMS4wNzUsMS4wODItMS43OTNjMC4zNjMtMC43MTcsMC4xODItMS4zNDQtMC4wOS0xLjg4M2MtMC4yNy0wLjUzNy0yLjQzOC01LjgyNS0zLjM0LTcuOTc3ICAgYy0wLjkwMi0yLjE1LTEuODAzLTEuNzkyLTIuNDM2LTEuNzkyYy0wLjYzMSwwLTEuMzU0LTAuMDktMi4wNzYtMC4wOWMtMC43MjIsMC0xLjg5NiwwLjI2OS0yLjg4OSwxLjM0NCAgIGMtMC45OTIsMS4wNzYtMy43ODksMy42NzYtMy43ODksOC45NjNjMCw1LjI4OCwzLjg3OSwxMC4zOTcsNC40MjIsMTEuMTEzYzAuNTQxLDAuNzE2LDcuNDksMTEuOTIsMTguNSwxNi4yMjMgICBDNTguMiw2NS43NzEsNTguMiw2NC4zMzYsNjAuMTg2LDY0LjE1NmMxLjk4NC0wLjE3OSw2LjQwNi0yLjU5OSw3LjMxMi01LjEwN0M2OC4zOTgsNTYuNTM3LDY4LjM5OCw1NC4zODYsNjguMTI5LDUzLjkzOHoiIGZpbGw9IiNGRkZGRkYiLz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K" width="50" height="20" />
+							    </div>
+								</a>
+	        	        			<a href="http://line.me/R/msg/text/?https://okkhor.org/2017/11/02/how-to-install-nginx-mariadb-10-php-7-lemp-stack-in-16-1016-04/">
+				<div class="custom-amp-socialsharing-icon custom-amp-socialsharing-line">
+					<amp-img src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTguMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDI5Ni41MjggMjk2LjUyOCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMjk2LjUyOCAyOTYuNTI4OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgd2lkdGg9IjI0cHgiIGhlaWdodD0iMjRweCI+CjxnPgoJPHBhdGggZD0iTTI5NS44MzgsMTE1LjM0N2wwLjAwMy0wLjAwMWwtMC4wOTItMC43NmMtMC4wMDEtMC4wMTMtMC4wMDItMC4wMjMtMC4wMDQtMC4wMzZjLTAuMDAxLTAuMDExLTAuMDAyLTAuMDIxLTAuMDA0LTAuMDMyICAgbC0wLjM0NC0yLjg1OGMtMC4wNjktMC41NzQtMC4xNDgtMS4yMjgtMC4yMzgtMS45NzRsLTAuMDcyLTAuNTk0bC0wLjE0NywwLjAxOGMtMy42MTctMjAuNTcxLTEzLjU1My00MC4wOTMtMjguOTQyLTU2Ljc2MiAgIGMtMTUuMzE3LTE2LjU4OS0zNS4yMTctMjkuNjg3LTU3LjU0OC0zNy44NzhjLTE5LjEzMy03LjAxOC0zOS40MzQtMTAuNTc3LTYwLjMzNy0xMC41NzdjLTI4LjIyLDAtNTUuNjI3LDYuNjM3LTc5LjI1NywxOS4xOTMgICBDMjMuMjg5LDQ3LjI5Ny0zLjU4NSw5MS43OTksMC4zODcsMTM2LjQ2MWMyLjA1NiwyMy4xMTEsMTEuMTEsNDUuMTEsMjYuMTg0LDYzLjYyMWMxNC4xODgsMTcuNDIzLDMzLjM4MSwzMS40ODMsNTUuNTAzLDQwLjY2ICAgYzEzLjYwMiw1LjY0MiwyNy4wNTEsOC4zMDEsNDEuMjkxLDExLjExNmwxLjY2NywwLjMzYzMuOTIxLDAuNzc2LDQuOTc1LDEuODQyLDUuMjQ3LDIuMjY0YzAuNTAzLDAuNzg0LDAuMjQsMi4zMjksMC4wMzgsMy4xOCAgIGMtMC4xODYsMC43ODUtMC4zNzgsMS41NjgtMC41NywyLjM1MmMtMS41MjksNi4yMzUtMy4xMSwxMi42ODMtMS44NjgsMTkuNzkyYzEuNDI4LDguMTcyLDYuNTMxLDEyLjg1OSwxNC4wMDEsMTIuODYgICBjMC4wMDEsMCwwLjAwMSwwLDAuMDAyLDBjOC4wMzUsMCwxNy4xOC01LjM5LDIzLjIzMS04Ljk1NmwwLjgwOC0wLjQ3NWMxNC40MzYtOC40NzgsMjguMDM2LTE4LjA0MSwzOC4yNzEtMjUuNDI1ICAgYzIyLjM5Ny0xNi4xNTksNDcuNzgzLTM0LjQ3NSw2Ni44MTUtNTguMTdDMjkwLjE3MiwxNzUuNzQ1LDI5OS4yLDE0NS4wNzgsMjk1LjgzOCwxMTUuMzQ3eiBNOTIuMzQzLDE2MC41NjFINjYuNzYxICAgYy0zLjg2NiwwLTctMy4xMzQtNy03Vjk5Ljg2NWMwLTMuODY2LDMuMTM0LTcsNy03YzMuODY2LDAsNywzLjEzNCw3LDd2NDYuNjk2aDE4LjU4MWMzLjg2NiwwLDcsMy4xMzQsNyw3ICAgQzk5LjM0MywxNTcuNDI3LDk2LjIwOSwxNjAuNTYxLDkyLjM0MywxNjAuNTYxeiBNMTE5LjAzLDE1My4zNzFjMCwzLjg2Ni0zLjEzNCw3LTcsN2MtMy44NjYsMC03LTMuMTM0LTctN1Y5OS42NzUgICBjMC0zLjg2NiwzLjEzNC03LDctN2MzLjg2NiwwLDcsMy4xMzQsNyw3VjE1My4zNzF6IE0xODIuMzA0LDE1My4zNzFjMCwzLjAzMy0xLjk1Myw1LjcyMS00LjgzOCw2LjY1OCAgIGMtMC43MTIsMC4yMzEtMS40NDEsMC4zNDMtMi4xNjEsMC4zNDNjLTIuMTk5LDAtNC4zMjMtMS4wMzktNS42NjYtMi44ODhsLTI1LjIwNy0zNC43MTd2MzAuNjA1YzAsMy44NjYtMy4xMzQsNy03LDcgICBjLTMuODY2LDAtNy0zLjEzNC03LTd2LTUyLjE2YzAtMy4wMzMsMS45NTMtNS43MjEsNC44MzgtNi42NThjMi44ODYtMC45MzYsNi4wNDUsMC4wOSw3LjgyNywyLjU0NWwyNS4yMDcsMzQuNzE3Vjk5LjY3NSAgIGMwLTMuODY2LDMuMTM0LTcsNy03YzMuODY2LDAsNywzLjEzNCw3LDdWMTUzLjM3MXogTTIzMy4zMTEsMTU5LjI2OWgtMzQuNjQ1Yy0zLjg2NiwwLTctMy4xMzQtNy03di0yNi44NDdWOTguNTczICAgYzAtMy44NjYsMy4xMzQtNyw3LTdoMzMuNTdjMy44NjYsMCw3LDMuMTM0LDcsN3MtMy4xMzQsNy03LDdoLTI2LjU3djEyLjg0OWgyMS41NjJjMy44NjYsMCw3LDMuMTM0LDcsN2MwLDMuODY2LTMuMTM0LDctNyw3ICAgaC0yMS41NjJ2MTIuODQ3aDI3LjY0NWMzLjg2NiwwLDcsMy4xMzQsNyw3UzIzNy4xNzcsMTU5LjI2OSwyMzMuMzExLDE1OS4yNjl6IiBmaWxsPSIjRkZGRkZGIi8+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPC9zdmc+Cg==" width="50" height="20" />
+				</div>
+			</a>
+									</div>
+		<amp-pixel src="../../../../../../pixel.wp.com/gd269.gif?v=ext&amp;j=1%3A5.5&amp;blog=137738325&amp;post=1990&amp;tz=6&amp;srv=okkhor.org&amp;host=okkhor.org&amp;rand=RANDOM&amp;ref=DOCUMENT_REFERRER"></amp-pixel>
+							<amp-analytics type="googleanalytics" id="analytics1">
+							<script type="application/json">
+								{"vars":{"account":"UA-108798133-1"},"triggers":{"trackPageview":{"on":"visible","request":"pageview"}}}							</script>
+						</amp-analytics>
+						</body>
+
+<!-- Mirrored from okkhor.org/2017/11/02/how-to-install-nginx-mariadb-10-php-7-lemp-stack-in-16-1016-04/amp/ by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 12 Mar 2018 09:06:36 GMT -->
+</html>
+<!-- Dynamic page generated in 0.718 seconds. -->
+<!-- Cached page generated by WP-Super-Cache on 2018-03-12 14:59:09 -->
+
+<!-- super cache -->
